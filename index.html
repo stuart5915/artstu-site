@@ -1,189 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stuart Hollinger</title>
-    <meta name="description" content="Builder, thinker, creator. Building the SUITE ecosystem and exploring the intersection of technology, philosophy, and human potential.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="/" class="nav-logo">Stuart Hollinger</a>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#philosophy">Philosophy</a>
-                <a href="#writings">Writings</a>
+    <div class="container">
+        <header class="header">
+            <div>
+                <div class="logo">Stuart <span>Hollinger</span></div>
+                <div class="tagline">Builder · Philosopher · Seeker</div>
             </div>
-        </div>
-    </nav>
+            <nav class="header-links">
+                <a href="https://twitter.com/artstu" target="_blank">Twitter</a>
+                <a href="https://getsuite.app" target="_blank">SUITE</a>
+                <a href="mailto:stuart@getsuite.app">Contact</a>
+            </nav>
+        </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-tag">Builder • Thinker • Creator</div>
-            <h1 class="hero-title">Stuart Hollinger</h1>
-            <p class="hero-subtitle">
-                Building tools that empower people. Exploring the intersection of 
-                technology, philosophy, and human potential.
-            </p>
-            <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">See What I'm Building</a>
-                <a href="#philosophy" class="btn btn-secondary">Explore My Thinking</a>
+        <main class="main-grid">
+            <!-- Hero -->
+            <div class="card card-hero">
+                <h1 class="hero-title">The <span>Examined</span> Life</h1>
+                <p class="hero-sub">Technology, consciousness, and the eternal questions.</p>
             </div>
-        </div>
-        <div class="hero-glow"></div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        I'm a builder who believes technology should serve humanity, not the other way around. 
-                        I create apps, explore ideas, and share what I learn along the way.
-                    </p>
-                    <p>
-                        Currently focused on building the <strong>SUITE ecosystem</strong> — a collection of 
-                        interconnected apps designed to help people live better lives. From fitness to finance, 
-                        sleep to self-reflection.
-                    </p>
-                    <p>
-                        Beyond building, I spend a lot of time thinking about energy dynamics, consciousness, 
-                        and the deeper patterns that shape reality. I share those explorations here.
-                    </p>
+            <!-- Stream of Consciousness -->
+            <div class="card card-stream">
+                <div class="card-icon">💭</div>
+                <div class="card-title">Inner Voice</div>
+                <div class="stream-content">
+                    <div class="stream-text">
+                        <span>consciousness</span> is the universe experiencing itself...<br><br>
+                        <span>Nietzsche</span> wrote of the abyss — unprocessed potential...<br><br>
+                        <span>Jesus</span> spoke of the Kingdom within...<br><br>
+                        <span>Dalí</span> bent clocks, time is softer than we think...<br><br>
+                        the gym is my temple, each rep a prayer...<br><br>
+                        <span>consciousness</span> is the universe experiencing itself...<br><br>
+                        <span>Nietzsche</span> wrote of the abyss — unprocessed potential...<br><br>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">What I'm Building</h2>
-            <div class="projects-grid">
-                <!-- SUITE -->
-                <a href="https://getsuite.app" class="project-card project-featured" target="_blank">
-                    <div class="project-icon">🏛️</div>
-                    <h3>SUITE Ecosystem</h3>
-                    <p>A connected collection of apps + a giving treasury. Building tools that give back.</p>
-                    <span class="project-link">getsuite.app →</span>
-                </a>
-                
-                <!-- OpticRep -->
-                <div class="project-card">
-                    <div class="project-icon">💪</div>
-                    <h3>OpticRep</h3>
-                    <p>AI-powered workout tracking with form analysis and personalized coaching.</p>
-                </div>
-                
-                <!-- REMcast -->
-                <div class="project-card">
-                    <div class="project-icon">😴</div>
-                    <h3>REMcast</h3>
-                    <p>Sleep tracking and dream journaling to unlock better rest.</p>
-                </div>
-                
-                <!-- Cheshbon -->
-                <div class="project-card">
-                    <div class="project-icon">🔮</div>
-                    <h3>Cheshbon</h3>
-                    <p>Daily reflections and spiritual accounting for personal growth.</p>
-                </div>
-                
-                <!-- FoodVitals -->
-                <div class="project-card">
-                    <div class="project-icon">🍎</div>
-                    <h3>FoodVitals</h3>
-                    <p>AI nutrition tracking that makes healthy eating effortless.</p>
-                </div>
-                
-                <!-- DeFi Knowledge -->
-                <div class="project-card">
-                    <div class="project-icon">💹</div>
-                    <h3>DeFi Knowledge</h3>
-                    <p>Learn decentralized finance from zero to confident.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <!-- Domain Cards -->
+            <a href="/existential-matrix.html" class="card card-matrix">
+                <div class="card-icon">🌀</div>
+                <div class="card-title">Existential Matrix</div>
+                <div class="card-desc">Framework for consciousness and reality</div>
+            </a>
 
-    <!-- Philosophy Section -->
-    <section id="philosophy" class="section">
-        <div class="container">
-            <h2 class="section-title">Philosophy</h2>
-            <p class="section-subtitle">
-                Ideas and perspectives I'm exploring. Energy dynamics, metaphysics, 
-                and the patterns underlying reality.
-            </p>
-            <div class="philosophy-grid">
-                <div class="philosophy-card">
-                    <h3>Energy Dynamics</h3>
-                    <p>How energy flows between people, systems, and ideas. The invisible forces that shape our experience.</p>
-                </div>
-                <div class="philosophy-card">
-                    <h3>Consciousness & Reality</h3>
-                    <p>The nature of awareness, perception, and how we create our experience of the world.</p>
-                </div>
-                <div class="philosophy-card">
-                    <h3>Building with Intention</h3>
-                    <p>Why the "how" matters as much as the "what" when creating things.</p>
-                </div>
-            </div>
-            <a href="writings.html" class="btn btn-primary" style="margin-top: 2rem;">Read My Writings →</a>
-        </div>
-    </section>
+            <a href="/bible.html" class="card card-bible">
+                <div class="card-icon">✝️</div>
+                <div class="card-title">Faith &amp; Bible</div>
+                <div class="card-desc">Identity, gratitude, promises of God</div>
+            </a>
 
-    <!-- Writings Section -->
-    <section id="writings" class="section section-alt">
-        <div class="container">
-            <h2 class="section-title">Recent Writings</h2>
-            <div class="writings-list">
-                <a href="#" class="writing-item">
-                    <span class="writing-date">Coming Soon</span>
-                    <h3>The Perpetual Foundation</h3>
-                    <p>Why I'm building a treasury that gives forever.</p>
-                </a>
-                <a href="#" class="writing-item">
-                    <span class="writing-date">Coming Soon</span>
-                    <h3>Energy as Currency</h3>
-                    <p>A different way to think about value exchange.</p>
-                </a>
-                <a href="#" class="writing-item">
-                    <span class="writing-date">Coming Soon</span>
-                    <h3>Building in Public</h3>
-                    <p>Lessons from creating an app ecosystem from scratch.</p>
-                </a>
-            </div>
-        </div>
-    </section>
+            <a href="/writings.html" class="card card-writings">
+                <div class="card-icon">✍️</div>
+                <div class="card-title">Writings &amp; Output</div>
+                <div class="card-desc">Articles, drawings, conversations</div>
+            </a>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="footer-name">Stuart Hollinger</span>
-                    <p>Building tools. Exploring ideas. Sharing the journey.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="https://getsuite.app" target="_blank">SUITE</a>
-                    <a href="https://twitter.com" target="_blank">Twitter</a>
-                    <a href="mailto:stuart@getsuite.app">Email</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2025 Stuart Hollinger. Built with intention.</p>
-            </div>
-        </div>
-    </footer>
+            <a href="/resources.html" class="card card-resources">
+                <div class="card-icon">📚</div>
+                <div class="card-title">Resources</div>
+                <div class="card-desc">Books on philosophy, theology, mind</div>
+            </a>
+
+            <a href="/queries.html" class="card card-queries">
+                <div class="card-icon">❓</div>
+                <div class="card-title">Random Queries</div>
+                <div class="card-desc">Questions I don't want to loop over</div>
+            </a>
+
+            <a href="https://getsuite.app" target="_blank" class="card card-suite">
+                <div class="card-icon">🏛️</div>
+                <div class="card-title">SUITE Ecosystem</div>
+                <div class="card-desc">Apps I'm building for humans</div>
+            </a>
+        </main>
+    </div>
 </body>
+
 </html>
