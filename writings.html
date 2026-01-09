@@ -29,123 +29,80 @@
         </header>
 
         <main class="main-grid" style="grid-template-rows: 1fr;">
-            <!-- Main Content Card (Spans full grid but contains the inner layout) -->
             <div class="card card-writings"
-                style="grid-column: span 4; grid-row: span 3; border-left: 3px solid #e74c3c; padding: 0; overflow: hidden;">
+                style="grid-column: span 4; grid-row: span 3; border-left: 3px solid #e74c3c;">
+                <h1 style="font-size: 32px; margin-bottom: 20px;">Articles <span
+                        style="font-size: 14px; color: var(--muted); font-weight: normal;">2017 — Present</span></h1>
+                <p style="color: var(--muted); margin-bottom: 30px;">Writings, thoughts, and conversations.</p>
 
-                <!-- Inner Layout: Sidebar + Content -->
-                <div class="timeline-wrapper">
-                    <!-- Left Sidebar (Years) -->
-                    <div class="timeline-sidebar">
-                        <div style="padding: 20px 0;">
-                            <a href="#year-2026" class="timeline-year-link active">2026</a>
-                            <a href="#year-2025" class="timeline-year-link">2025</a>
-                            <a href="#year-2024" class="timeline-year-link">2024</a>
-                            <a href="#year-2023" class="timeline-year-link">2023</a>
-                            <a href="#year-2022" class="timeline-year-link">2022</a>
-                            <a href="#year-2021" class="timeline-year-link">2021</a>
-                            <a href="#year-2020" class="timeline-year-link">2020</a>
-                            <a href="#year-2019" class="timeline-year-link">2019</a>
-                            <a href="#year-2018" class="timeline-year-link">2018</a>
-                            <a href="#year-2017" class="timeline-year-link">2017</a>
-                        </div>
+                <div style="max-height: 100%; overflow-y: auto; padding-right: 10px;">
+
+                    <!-- Year Group: 2026 -->
+                    <div style="margin-bottom: 35px;">
+                        <div
+                            style="font-size: 13px; color: #e74c3c; margin-bottom: 15px; font-weight: 600; letter-spacing: 1px;">
+                            2026</div>
+
+                        <a href="#"
+                            style="display: block; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 8px; margin-bottom: 10px; text-decoration: none; color: inherit; border: 1px solid transparent; transition: all 0.2s;">
+                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">The "Life
+                                Accomplishments" Architecture</div>
+                            <div style="font-size: 13px; color: var(--muted);">Jan 09 • Designing a retrospective on a
+                                decade of building.</div>
+                        </a>
                     </div>
 
-                    <!-- Right Content (Articles) -->
-                    <div class="timeline-content">
-                        <div style="padding: 30px 40px;">
-                            <h1
-                                style="font-size: 32px; margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
-                                Articles <span
-                                    style="font-size: 14px; color: var(--muted); font-weight: normal; margin-left: 10px;">2017
-                                    — Present</span>
-                            </h1>
+                    <!-- Year Group: 2025 -->
+                    <div style="margin-bottom: 35px;">
+                        <div
+                            style="font-size: 13px; color: #e74c3c; margin-bottom: 15px; font-weight: 600; letter-spacing: 1px;">
+                            2025</div>
 
-                            <!-- 2026 -->
-                            <div id="year-2026" class="year-section">
-                                <div class="year-label-stick">2026</div>
-
-                                <a href="#" class="article-card">
-                                    <div class="article-header">
-                                        <div class="article-title">The "Life Accomplishments" Architecture</div>
-                                        <div class="article-meta">Jan 09</div>
-                                    </div>
-                                    <div class="article-summary">
-                                        <span class="article-tag tag-article">System</span>
-                                        Designing a retrospective on a decade of building.
-                                    </div>
-                                </a>
+                        <a href="#"
+                            style="display: block; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 8px; margin-bottom: 10px; text-decoration: none; color: inherit; border: 1px solid transparent; transition: all 0.2s;">
+                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">The Examined Life
+                                (Pivot)</div>
+                            <div style="font-size: 13px; color: var(--muted);">Dec 15 • Why I moved back to my own name.
                             </div>
+                        </a>
 
-                            <!-- 2025 -->
-                            <div id="year-2025" class="year-section">
-                                <div class="year-label-stick">2025</div>
-
-                                <a href="#" class="article-card">
-                                    <div class="article-header">
-                                        <div class="article-title">The Examined Life (Pivot)</div>
-                                        <div class="article-meta">Dec 15</div>
-                                    </div>
-                                    <div class="article-summary">
-                                        <span class="article-tag tag-article">Philosophy</span>
-                                        Why I moved away from the "Examined Life" branding back to my own name.
-                                    </div>
-                                </a>
-
-                                <a href="#" class="article-card">
-                                    <div class="article-header">
-                                        <div class="article-title">On Artificial Consciousness</div>
-                                        <div class="article-meta">Nov 02</div>
-                                    </div>
-                                    <div class="article-summary">
-                                        <span class="article-tag tag-article">AI</span>
-                                        Conversations with Gemeni about the nature of the soul.
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- 2024 -->
-                            <div id="year-2024" class="year-section">
-                                <div class="year-label-stick">2024</div>
-
-                                <a href="#" class="article-card">
-                                    <div class="article-header">
-                                        <div class="article-title">Building SUITE</div>
-                                        <div class="article-meta">Aug 14</div>
-                                    </div>
-                                    <div class="article-summary">
-                                        <span class="article-tag tag-book">Documentation</span>
-                                        The foundational principles of the decentralized app store.
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- 2023 (Placeholder for older content) -->
-                            <div id="year-2023" class="year-section">
-                                <div class="year-label-stick">2023</div>
-                                <div style="color: var(--muted); font-style: italic; font-size: 13px;">Archived
-                                    content...</div>
-                            </div>
-
-                            <!-- 2017 -->
-                            <div id="year-2017" class="year-section">
-                                <div class="year-label-stick">2017</div>
-                                <a href="#" class="article-card">
-                                    <div class="article-header">
-                                        <div class="article-title">The First Steps</div>
-                                        <div class="article-meta">Jan 01</div>
-                                    </div>
-                                    <div class="article-summary">
-                                        <span class="article-tag tag-sketch">Journal</span>
-                                        Where the journey began.
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
+                        <a href="#"
+                            style="display: block; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 8px; margin-bottom: 10px; text-decoration: none; color: inherit; border: 1px solid transparent; transition: all 0.2s;">
+                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">On Artificial
+                                Consciousness</div>
+                            <div style="font-size: 13px; color: var(--muted);">Nov 02 • Conversations with Gemini about
+                                the nature of the soul.</div>
+                        </a>
                     </div>
+
+                    <!-- Year Group: 2024 -->
+                    <div style="margin-bottom: 35px;">
+                        <div
+                            style="font-size: 13px; color: #e74c3c; margin-bottom: 15px; font-weight: 600; letter-spacing: 1px;">
+                            2024</div>
+
+                        <a href="#"
+                            style="display: block; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 8px; margin-bottom: 10px; text-decoration: none; color: inherit; border: 1px solid transparent; transition: all 0.2s;">
+                            <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Building SUITE</div>
+                            <div style="font-size: 13px; color: var(--muted);">Aug 14 • The foundational principles of
+                                the decentralized app store.</div>
+                        </a>
+                    </div>
+
+                    <!-- More years placeholder -->
+                    <div style="margin-bottom: 35px;">
+                        <div
+                            style="font-size: 13px; color: #e74c3c; margin-bottom: 15px; font-weight: 600; letter-spacing: 1px;">
+                            2017 - 2023</div>
+                        <div style="color: var(--muted); font-style: italic; font-size: 13px; padding-left: 15px;">
+                            Archive coming soon...</div>
+                    </div>
+
                 </div>
 
+                <a href="/"
+                    style="color: #e74c3c; margin-top: auto; padding-top: 20px; text-decoration: none; font-weight: 500;">←
+                    Return Home</a>
             </div>
         </main>
     </div>
