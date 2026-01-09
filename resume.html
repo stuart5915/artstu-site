@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Accomplishments | Stuart Hollinger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 25px;
+            border-left: 2px solid var(--border);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--text);
+            border: 2px solid var(--bg);
+        }
+
+        .timeline-date {
+            font-size: 13px;
+            color: #1abc9c;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div>
+                <a href="/" style="text-decoration: none; color: inherit;">
+                    <div class="logo">Stuart <span>Hollinger</span></div>
+                    <div class="tagline">Builder · Philosopher · Seeker</div>
+                </a>
+            </div>
+            <nav class="header-links">
+                <a href="/">Home</a>
+                <a href="https://twitter.com/artstu" target="_blank">Twitter</a>
+                <a href="https://getsuite.app" target="_blank">SUITE</a>
+                <a href="mailto:stuart@getsuite.app">Contact</a>
+            </nav>
+        </header>
+
+        <main class="main-grid" style="grid-template-rows: 1fr;">
+            <div class="card" style="grid-column: span 4; grid-row: span 3; border-left: 3px solid #1abc9c;">
+                <h1 style="font-size: 32px; margin-bottom: 30px;">Life Accomplishments</h1>
+
+                <div class="timeline" style="max-height: 100%; overflow-y: auto; padding-right: 10px;">
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2026 - PRESENT</div>
+                        <div class="timeline-title">Building SUITE Ecosystem</div>
+                        <div class="timeline-desc">Architecting a decentralized app store and creator platform
+                            (getsuite.app). Developing multiple AI-driven applications including OpticRep, REMcast, and
+                            Cheshbon.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-title">Launched Artstu.ca</div>
+                        <div class="timeline-desc">Personal philosophy and portfolio site exploring the intersection of
+                            technology and consciousness.</div>
+                    </div>
+
+                    <!-- Add more timeline items here -->
+
+                    <div class="timeline-item" style="border-left-color: transparent;">
+                        <div class="timeline-date">EARLIER</div>
+                        <div class="timeline-title">The Foundation</div>
+                        <div class="timeline-desc">Years of building, learning, and seeking.</div>
+                    </div>
+
+                </div>
+
+                <a href="/"
+                    style="color: #1abc9c; margin-top: auto; padding-top: 20px; text-decoration: none; font-weight: 500;">←
+                    Return Home</a>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
