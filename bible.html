@@ -9,6 +9,45 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .content-section {
+            margin-bottom: 40px;
+        }
+
+        .content-section h2 {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 165, 55, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .content-section p {
+            line-height: 1.6;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .identity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .identity-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .identity-card h3 {
+            font-size: 14px;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -30,22 +69,40 @@
 
         <main class="main-grid" style="grid-template-rows: 1fr;">
             <div class="card card-bible"
-                style="grid-column: span 4; grid-row: span 3; border-left: 3px solid var(--gold);">
-                <h1 style="font-size: 32px; margin-bottom: 20px;">Faith & Bible</h1>
-                <p style="color: var(--muted); margin-bottom: 20px;">Identity, gratitude, promises of God.</p>
+                style="grid-column: span 4; grid-row: span 3; border-left: 3px solid var(--gold); overflow-y: auto;">
+                <h1 style="font-size: 32px; margin-bottom: 10px;">Faith & Bible</h1>
+                <p style="color: var(--muted); margin-bottom: 40px;">Identity, gratitude, promises of God.</p>
 
-                <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
-                    <p><em>Content Rebuild In Progress...</em></p>
-                    <p style="margin-top: 10px;">This page is being ported from the live site. It will contain:</p>
-                    <ul style="margin-left: 20px; margin-top: 10px; color: var(--muted);">
-                        <li>Who God Is</li>
-                        <li>My Identity</li>
-                        <li>Promises & Gratitude</li>
-                    </ul>
+                <div class="content-section">
+                    <h2>Who God Is</h2>
+                    <p>[Paste your notes on 'Essence' and '7 I Ams' here...]</p>
+                </div>
+
+                <div class="content-section">
+                    <h2>My Identity</h2>
+                    <div class="identity-grid">
+                        <div class="identity-card">
+                            <h3>Accepted</h3>
+                            <p>I am...</p>
+                        </div>
+                        <div class="identity-card">
+                            <h3>Secure</h3>
+                            <p>I am...</p>
+                        </div>
+                        <div class="identity-card">
+                            <h3>Significant</h3>
+                            <p>I am...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2>Promises & Gratitude</h2>
+                    <p>[Paste your promises here...]</p>
                 </div>
 
                 <a href="/"
-                    style="color: var(--gold); margin-top: auto; padding-top: 20px; text-decoration: none; font-weight: 500;">←
+                    style="color: var(--gold); display: block; margin-top: 40px; text-decoration: none; font-weight: 500;">←
                     Return Home</a>
             </div>
         </main>

@@ -1,0 +1,167 @@
+
+/* Timeline Layout */
+.timeline-wrapper {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    gap: 20px;
+}
+
+.timeline-sidebar {
+    width: 80px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding-right: 10px;
+    text-align: right;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.timeline-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.timeline-year-link {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Inter', monospace; /* Monospace for numbers looks techy */
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.timeline-year-link:hover,
+.timeline-year-link.active {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(-5px);
+}
+
+.timeline-year-link.active::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold);
+}
+
+.timeline-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-bottom: 50px;
+    scroll-behavior: smooth;
+}
+
+/* Timeline Cards */
+.year-section {
+    margin-bottom: 60px;
+    position: relative;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.year-label-stick {
+    position: absolute;
+    left: -46px;
+    top: 0;
+    font-family: 'Inter', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    background: var(--bg); /* Mask the line */
+    padding: 5px 0;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    opacity: 0.7;
+    letter-spacing: 2px;
+}
+
+.article-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+    position: relative;
+    overflow: hidden;
+}
+
+.article-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(212, 165, 55, 0.3);
+    transform: translateX(5px);
+}
+
+.article-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.article-card:hover::before {
+    opacity: 1;
+}
+
+.article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.article-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.article-meta {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Inter', monospace;
+}
+
+.article-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-right: 8px;
+}
+
+.tag-book { border-color: #9b59b6; color: #d2b4de; }
+.tag-article { border-color: #3498db; color: #aed6f1; }
+.tag-sketch { border-color: #e67e22; color: #fad7a0; }
+
+.article-summary {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.6;
+}
