@@ -717,6 +717,128 @@
             font-family: var(--font-mono);
         }
 
+        /* ===== ATTENTION CHART ===== */
+        .attention-section { background: var(--deep); }
+
+        .attention-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .chart-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .chart-wrap canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .chart-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .chart-center .center-pct {
+            font-family: var(--font-display);
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .chart-center .center-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-ghost);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: var(--ocean);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+            cursor: default;
+        }
+
+        .legend-item:hover, .legend-item.active {
+            border-color: var(--border-glow);
+            background: var(--shelf);
+            transform: translateX(4px);
+        }
+
+        .legend-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .legend-name {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .legend-pct {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--teal);
+        }
+
+        .legend-item.available .legend-name {
+            color: var(--text-ghost);
+            font-style: italic;
+        }
+
+        .legend-item.available .legend-pct {
+            color: var(--lobster-bright);
+        }
+
+        .attention-footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--text-ghost);
+        }
+
+        .attention-footer a { font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .attention-layout {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+            .chart-wrap { max-width: 280px; }
+            .chart-center .center-pct { font-size: 32px; }
+        }
+
         /* ===== ECOSYSTEM ===== */
         .ecosystem-section {
             background: linear-gradient(180deg, var(--abyss), var(--deep));
@@ -1208,6 +1330,30 @@
         </div>
     </section>
 
+    <!-- ===== ATTENTION ALLOCATION ===== -->
+    <section id="attention" class="attention-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-label">Where My Energy Goes</p>
+                <h2 class="section-title">Attention Allocation</h2>
+                <p class="section-desc">A live look at how my creative output is distributed across projects right now.</p>
+            </div>
+            <div class="attention-layout reveal">
+                <div class="chart-wrap">
+                    <canvas id="donutChart" width="360" height="360"></canvas>
+                    <div class="chart-center" id="chartCenter">
+                        <div class="center-pct" id="centerPct"></div>
+                        <div class="center-label" id="centerLabel">Hover a slice</div>
+                    </div>
+                </div>
+                <div class="chart-legend" id="chartLegend"></div>
+            </div>
+            <div class="attention-footer reveal">
+                Want to be on this chart? <a href="https://x.com/artstu" target="_blank">DM me</a>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== ECOSYSTEM ===== -->
     <section id="ecosystem" class="ecosystem-section">
         <div class="container">
@@ -1393,6 +1539,152 @@
             </div>`;
         grid.appendChild(card);
     });
+
+    // ===== ATTENTION ALLOCATION CONFIG =====
+    // Edit this array to update the chart. Percentages should add up to 100.
+    const ALLOCATIONS = [
+        { name: '$CLAWNCH',   pct: 40, color: '#00ffc8' },
+        { name: 'OpenClaw',   pct: 20, color: '#6366f1' },
+        { name: 'Moltbook',   pct: 15, color: '#00b4d8' },
+        { name: 'Available',  pct: 25, color: '#1e2540' },
+    ];
+
+    // ===== DONUT CHART =====
+    (function() {
+        const dCanvas = document.getElementById('donutChart');
+        if (!dCanvas) return;
+        const dCtx = dCanvas.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        const size = 360;
+        dCanvas.width = size * dpr;
+        dCanvas.height = size * dpr;
+        dCanvas.style.width = size + 'px';
+        dCanvas.style.height = size + 'px';
+        dCtx.scale(dpr, dpr);
+
+        const cx = size / 2, cy = size / 2;
+        const outerR = 155, innerR = 100, gap = 0.02;
+        let hoverIndex = -1;
+        let animProgress = 0;
+        let animStart = null;
+        let chartReady = false;
+
+        const centerPct = document.getElementById('centerPct');
+        const centerLabel = document.getElementById('centerLabel');
+        const legendEl = document.getElementById('chartLegend');
+
+        // Build legend
+        ALLOCATIONS.forEach((a, i) => {
+            const item = document.createElement('div');
+            const isAvail = a.name === 'Available';
+            item.className = 'legend-item' + (isAvail ? ' available' : '');
+            item.innerHTML = `
+                <div class="legend-dot" style="background:${a.color}${isAvail ? ';border:1px dashed var(--text-ghost)' : ''}"></div>
+                <span class="legend-name">${a.name}</span>
+                <span class="legend-pct">${a.pct}%</span>
+            `;
+            item.addEventListener('mouseenter', () => setHover(i));
+            item.addEventListener('mouseleave', () => setHover(-1));
+            legendEl.appendChild(item);
+        });
+
+        function setHover(i) {
+            hoverIndex = i;
+            document.querySelectorAll('.legend-item').forEach((el, idx) => {
+                el.classList.toggle('active', idx === i);
+            });
+            if (i >= 0) {
+                centerPct.textContent = ALLOCATIONS[i].pct + '%';
+                centerPct.style.color = ALLOCATIONS[i].color;
+                centerLabel.textContent = ALLOCATIONS[i].name;
+            } else {
+                const total = ALLOCATIONS.reduce((s, a) => a.name !== 'Available' ? s + a.pct : s, 0);
+                centerPct.textContent = total + '%';
+                centerPct.style.color = 'var(--teal)';
+                centerLabel.textContent = 'Allocated';
+            }
+        }
+
+        // Mouse hover on canvas
+        dCanvas.addEventListener('mousemove', function(e) {
+            const rect = dCanvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+            const dx = mx - cx, dy = my - cy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < innerR || dist > outerR + 10) { setHover(-1); return; }
+            let angle = Math.atan2(dy, dx);
+            if (angle < -Math.PI / 2) angle += Math.PI * 2;
+            const startOffset = -Math.PI / 2;
+            let cumAngle = startOffset;
+            for (let i = 0; i < ALLOCATIONS.length; i++) {
+                const sweep = (ALLOCATIONS[i].pct / 100) * Math.PI * 2;
+                if (angle >= cumAngle && angle < cumAngle + sweep) { setHover(i); return; }
+                cumAngle += sweep + gap;
+            }
+            setHover(-1);
+        });
+
+        dCanvas.addEventListener('mouseleave', () => setHover(-1));
+
+        function drawChart(progress) {
+            dCtx.clearRect(0, 0, size, size);
+            let startAngle = -Math.PI / 2;
+
+            ALLOCATIONS.forEach((a, i) => {
+                const sweep = (a.pct / 100) * Math.PI * 2 * progress;
+                const endAngle = startAngle + sweep;
+                const isHover = hoverIndex === i;
+                const r = isHover ? outerR + 6 : outerR;
+                const ir = isHover ? innerR - 3 : innerR;
+
+                dCtx.beginPath();
+                dCtx.arc(cx, cy, r, startAngle, endAngle);
+                dCtx.arc(cx, cy, ir, endAngle, startAngle, true);
+                dCtx.closePath();
+
+                dCtx.fillStyle = a.color;
+                if (isHover) {
+                    dCtx.shadowColor = a.color;
+                    dCtx.shadowBlur = 20;
+                } else {
+                    dCtx.shadowColor = 'transparent';
+                    dCtx.shadowBlur = 0;
+                }
+                dCtx.fill();
+
+                startAngle = endAngle + gap;
+            });
+
+            dCtx.shadowColor = 'transparent';
+            dCtx.shadowBlur = 0;
+        }
+
+        function animate(ts) {
+            if (!animStart) animStart = ts;
+            const elapsed = ts - animStart;
+            animProgress = Math.min(1, elapsed / 1200);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - animProgress, 3);
+            drawChart(eased);
+            if (animProgress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                chartReady = true;
+                // Continuous redraw for hover
+                function loop() { drawChart(1); requestAnimationFrame(loop); }
+                loop();
+            }
+        }
+
+        // Start animation when section is visible
+        const chartObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !chartReady && !animStart) {
+                setHover(-1);
+                requestAnimationFrame(animate);
+            }
+        }, { threshold: 0.3 });
+        chartObserver.observe(dCanvas);
+    })();
 
     // ===== NAV SCROLL =====
     const nav = document.getElementById('nav');
