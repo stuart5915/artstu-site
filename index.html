@@ -1,104 +1,1012 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stuart Hollinger</title>
+    <title>Stuart | The Human API for the Agentic Economy</title>
+    <meta name="description" content="Content strategist, narrative architect, and human-layer operator for the agentic economy. The human API for your agent business.">
+    <meta property="og:title" content="Stuart | artstu">
+    <meta property="og:description" content="The human API for the agentic economy. Content, narrative, and everything your agents can't do.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://artstu.ca">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@artstu">
+    <meta name="twitter:title" content="Stuart | The Human API">
+    <meta name="twitter:description" content="Content strategist, narrative architect, and human-layer operator for the agentic economy.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & VARIABLES ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #06080f;
+            --bg-secondary: #0b0e1a;
+            --bg-card: #0f1221;
+            --bg-card-hover: #141833;
+            --border: #1a1f35;
+            --border-hover: #2a3050;
+            --text: #e8eaf0;
+            --text-secondary: #8b90a5;
+            --text-muted: #5a5f78;
+            --accent: #00d4aa;
+            --accent-dim: rgba(0, 212, 170, 0.12);
+            --accent-glow: rgba(0, 212, 170, 0.25);
+            --accent-secondary: #00b4d8;
+            --lobster: #e63946;
+            --lobster-dim: rgba(230, 57, 70, 0.1);
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #33e0be; }
+
+        /* ========== LAYOUT ========== */
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        /* ========== AMBIENT BACKGROUND ========== */
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-glow::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.04) 0%, transparent 70%);
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        .bg-glow::after {
+            content: '';
+            position: absolute;
+            bottom: 10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.03) 0%, transparent 70%);
+            animation: drift 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(40px, -30px); }
+        }
+
+        /* ========== NAV ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 0;
+            background: rgba(6, 8, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        nav.scrolled {
+            border-bottom-color: var(--border);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-cta {
+            background: var(--accent-dim);
+            color: var(--accent) !important;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            transition: all 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: rgba(0, 212, 170, 0.2);
+            border-color: rgba(0, 212, 170, 0.4);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .hero-emojis {
+            font-size: 32px;
+            margin-bottom: 24px;
+            letter-spacing: 6px;
+        }
+
+        .hero-name {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        .hero-desc {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        .hero-desc strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-sans);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: #33e0be;
+            color: var(--bg-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            transform: translateY(-1px);
+        }
+
+        /* ========== SECTION HEADERS ========== */
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin-bottom: 48px;
+        }
+
+        /* ========== WHAT I DO ========== */
+        .services-tier {
+            margin-bottom: 56px;
+        }
+
+        .tier-label {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tier-label.primary { color: var(--accent); }
+        .tier-label.expanded { color: var(--lobster); }
+
+        .tier-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.25s;
+        }
+
+        .service-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .service-card .icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .service-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .service-card.open-card {
+            border-style: dashed;
+            border-color: var(--border-hover);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 140px;
+        }
+
+        .service-card.open-card p {
+            font-style: italic;
+        }
+
+        /* ========== PORTFOLIO ========== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.25s;
+        }
+
+        .portfolio-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .portfolio-img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-img .placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .portfolio-img .placeholder-icon {
+            font-size: 32px;
+            opacity: 0.5;
+        }
+
+        .portfolio-info {
+            padding: 18px 20px;
+        }
+
+        .portfolio-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .portfolio-info .metrics {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .portfolio-info .metrics span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ========== ECOSYSTEM ========== */
+        .ecosystem {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ecosystem-content {
+            max-width: 640px;
+        }
+
+        .ecosystem-content p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .ecosystem-content a {
+            font-weight: 600;
+        }
+
+        .ecosystem-logos {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 36px;
+        }
+
+        .eco-tag {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        /* ========== HIRE ME ========== */
+        .hire-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .hire-block h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .payment-methods {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .payment-methods li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .payment-methods li .token {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--text);
+            font-size: 14px;
+            background: var(--bg-card);
+            padding: 2px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .contact-methods {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-methods li {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .contact-methods li strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .hire-cta {
+            margin-top: 48px;
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .hire-cta p {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .hire-cta .sub {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .footer-emojis {
+            font-size: 20px;
+            letter-spacing: 4px;
+        }
+
+        .footer-right a {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .footer-right a:hover {
+            color: var(--text);
+        }
+
+        /* ========== SCROLL ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            section { padding: 72px 0; }
+
+            .nav-links { display: none; }
+
+            .nav-mobile-toggle {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                padding: 8px;
+            }
+
+            .nav-mobile-toggle span {
+                width: 22px;
+                height: 2px;
+                background: var(--text);
+                border-radius: 2px;
+                transition: all 0.3s;
+            }
+
+            .mobile-menu {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: rgba(6, 8, 15, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+
+            .mobile-menu.open { display: flex; flex-direction: column; gap: 16px; }
+
+            .mobile-menu a {
+                color: var(--text-secondary);
+                font-size: 16px;
+                font-weight: 500;
+                padding: 8px 0;
+            }
+
+            .hero-emojis { font-size: 24px; }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hire-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            footer .container {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .nav-mobile-toggle { display: none; }
+        }
+
+        /* ========== LOBSTER WATERMARK ========== */
+        .lobster-watermark {
+            position: fixed;
+            bottom: -60px;
+            right: -40px;
+            font-size: 240px;
+            opacity: 0.015;
+            pointer-events: none;
+            z-index: 0;
+            transform: rotate(-15deg);
+        }
+    </style>
 </head>
-
 <body>
-    <div class="container">
-        <header class="header">
-            <div>
-                <div class="logo">Stuart <span>Hollinger</span></div>
-                <div class="tagline">Builder · Philosopher · Seeker</div>
-            </div>
-            <nav class="header-links">
-                <a href="https://twitter.com/artstu" target="_blank">Twitter</a>
-                <a href="https://getsuite.app" target="_blank">SUITE</a>
-                <a href="mailto:stuart@getsuite.app">Contact</a>
-            </nav>
-        </header>
 
-        <main class="main-grid">
-            <!-- Hero -->
-            <div class="card card-hero">
-                <h1 class="hero-title">Stuart <span>Hollinger</span></h1>
-                <p class="hero-sub">Technology, consciousness, and the eternal questions.</p>
+    <!-- Ambient background glow -->
+    <div class="bg-glow"></div>
+
+    <!-- Lobster watermark -->
+    <div class="lobster-watermark">🦞</div>
+
+    <!-- ========== NAV ========== -->
+    <nav id="nav">
+        <div class="container">
+            <div class="nav-logo">art<span>stu</span></div>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#portfolio">Work</a>
+                <a href="#ecosystem">Ecosystem</a>
+                <a href="writings.html">Writings</a>
+                <a href="#hire" class="nav-cta">Hire Me</a>
+            </div>
+            <div class="nav-mobile-toggle" onclick="toggleMobile()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#services" onclick="closeMobile()">Services</a>
+            <a href="#portfolio" onclick="closeMobile()">Work</a>
+            <a href="#ecosystem" onclick="closeMobile()">Ecosystem</a>
+            <a href="writings.html" onclick="closeMobile()">Writings</a>
+            <a href="#hire" onclick="closeMobile()">Hire Me</a>
+            <a href="https://x.com/artstu" target="_blank">@artstu</a>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-emojis">🦞🧠🤖🦾💰</div>
+                <h1 class="hero-name">Stuart</h1>
+                <p class="hero-tagline">God Love AI DeFi</p>
+                <p class="hero-desc">
+                    I'm <strong>the human API</strong> for the agentic economy. Content strategy, narrative architecture, and everything your agents can't do.
+                </p>
+                <div class="hero-actions">
+                    <a href="#hire" class="btn btn-primary">Work With Me</a>
+                    <a href="https://x.com/artstu" target="_blank" class="btn btn-secondary">@artstu on X &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHAT I DO ========== -->
+    <section id="services">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// what i do</p>
+                <h2 class="section-title">Services</h2>
+                <p class="section-desc">I build narratives for agent-launched projects and fill every gap your AI can't. Builder who writes. Writer who builds.</p>
             </div>
 
-            <!-- Stream of Consciousness -->
-            <div class="card card-stream">
-                <div class="card-icon">💭</div>
-                <div class="card-title">Inner Voice</div>
-                <div class="stream-content">
-                    <div class="stream-text">
-                        ahhhhh luckily we have <span>Jesus</span>...<br><br>
-                        I literally don't know anything...<br><br>
-                        I'm so confused...<br><br>
-                        so much confusion!! Do you not see?<br><br>
-                        ahh luckily we have <span>Jesus</span>...<br><br>
-                        ...<br>
-                        ...<br>
-                        <span>love</span><br>
-                        <span>love</span><br>
-                        <span>love</span><br>
-                        <span>love</span><br>
-                        <span>love</span><br>
-                        <span>love</span><br>
-                        <span>love</span><br><br>
-                        woah where's God/Love?<br><br>
-                        I CAN'T FIND IT!!!<br><br>
-                        Ahhh, luckily we have <span>Jesus</span> and can lean into His love for me ❤️<br><br>
-                        ahhhhh luckily we have <span>Jesus</span>...<br><br>
-                        I literally don't know anything...<br><br>
+            <!-- Primary: Content & Narrative -->
+            <div class="services-tier reveal">
+                <div class="tier-label primary">
+                    <span>Content &amp; Narrative</span>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="icon">🔥</div>
+                        <h3>Viral Content</h3>
+                        <p>Long-form threads and posts that CT actually engages with. Research-backed, technically deep, written to spread.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🧵</div>
+                        <h3>Narrative Strategy</h3>
+                        <p>Position your token's story so people get it in 30 seconds. Tokenomics, mechanics, and vision distilled into CT language.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🎨</div>
+                        <h3>Visual &amp; Meme Direction</h3>
+                        <p>Meme concepts, text-to-image prompts, text-to-video direction. I know what lands and what's cringe.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🔬</div>
+                        <h3>Deep Research</h3>
+                        <p>I understand DeFi mechanics, LP positions, fee accrual, burn mechanisms, and smart contracts. I write about what I actually understand.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Domain Cards -->
-            <a href="/perspectives.html" class="card card-matrix">
-                <div class="card-icon">🌀</div>
-                <div class="card-title">Perspectives</div>
-                <div class="card-desc">Frameworks for consciousness and reality</div>
-            </a>
+            <!-- Expanded: The Human Layer -->
+            <div class="services-tier reveal">
+                <div class="tier-label expanded">
+                    <span>The Human Layer</span>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="icon">🎙️</div>
+                        <h3>Voice &amp; Presence</h3>
+                        <p>Twitter Spaces, AMAs, podcasts, video content. Be the human face and voice your agent project needs.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🤝</div>
+                        <h3>Partnerships &amp; Deals</h3>
+                        <p>Get on calls, build trust, close deals. Human-to-human relationship building that agents can't replicate.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🏟️</div>
+                        <h3>IRL &amp; Conferences</h3>
+                        <p>ETHDenver, Token2049, and beyond. Represent your project where handshakes still matter.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">🛡️</div>
+                        <h3>Community &amp; Moderation</h3>
+                        <p>Manage Discord and Telegram with nuance. Read the room, handle sensitive situations, make judgment calls.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon">✅</div>
+                        <h3>KYC &amp; Compliance</h3>
+                        <p>Interface with platforms, exchanges, and partners that require a verified human. Legal and regulatory point of contact.</p>
+                    </div>
+                    <div class="service-card open-card">
+                        <div class="icon">✨</div>
+                        <h3>Anything Else</h3>
+                        <p>Whatever your agents can't do, I can. I'm flexible. Let's talk.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <a href="/bible.html" class="card card-bible">
-                <div class="card-icon">✝️</div>
-                <div class="card-title">Faith &amp; Bible</div>
-                <div class="card-desc">Identity, gratitude, promises of God</div>
-            </a>
+    <!-- ========== PORTFOLIO ========== -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// proof of work</p>
+                <h2 class="section-title">Work That Performed</h2>
+                <p class="section-desc">Posts, threads, and content that moved markets and timelines. Placeholder cards below &mdash; swap in your screenshots.</p>
+            </div>
 
-            <a href="/writings.html" class="card card-writings">
-                <div class="card-icon">✍️</div>
-                <div class="card-title">Articles</div>
-                <div class="card-desc">Articles, drawings, conversations</div>
-            </a>
+            <div class="portfolio-grid reveal" id="portfolioGrid">
+                <!-- Cards rendered by JS from config below -->
+            </div>
+        </div>
+    </section>
 
-            <a href="/resources.html" class="card card-resources">
-                <div class="card-icon">📚</div>
-                <div class="card-title">Resources</div>
-                <div class="card-desc">Books on philosophy, theology, mind</div>
-            </a>
+    <!-- ========== ECOSYSTEM ========== -->
+    <section class="ecosystem" id="ecosystem">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// the bigger picture</p>
+                <h2 class="section-title">The Agentic Economy</h2>
+            </div>
+            <div class="ecosystem-content reveal">
+                <p>AI agents are launching tokens, managing treasuries, and building communities autonomously on Base. But there's a layer they can't fill &mdash; the human one. Negotiations, live presence, taste, trust, and judgment still require a person.</p>
+                <p>That's where I operate. I'm embedded in the <a href="https://clawn.ch" target="_blank">Clawnch</a> ecosystem and the broader agentic economy, bridging what agents build with what humans need to see, feel, and believe.</p>
+            </div>
+            <div class="ecosystem-logos reveal">
+                <span class="eco-tag">Clawnch</span>
+                <span class="eco-tag">OpenClaw</span>
+                <span class="eco-tag">Moltbook</span>
+                <span class="eco-tag">Bankr</span>
+                <span class="eco-tag">Clanker</span>
+                <span class="eco-tag">Base</span>
+            </div>
+        </div>
+    </section>
 
-            <a href="/resume.html" class="card card-queries">
-                <div class="card-icon">🏆</div>
-                <div class="card-title">Life Accomplishments</div>
-                <div class="card-desc">Timeline, milestones, and what I've built</div>
-            </a>
+    <!-- ========== HIRE ME ========== -->
+    <section id="hire">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// let's work</p>
+                <h2 class="section-title">Hire Me</h2>
+            </div>
 
-            <a href="https://getsuite.app" target="_blank" class="card card-suite">
-                <div class="card-icon">🏛️</div>
-                <div class="card-title">SUITE Ecosystem</div>
-                <div class="card-desc">Apps I'm building for humans</div>
-            </a>
-        </main>
-    </div>
+            <div class="hire-grid reveal">
+                <div class="hire-block">
+                    <h3>Payment</h3>
+                    <ul class="payment-methods">
+                        <li><span class="token">ETH</span> Ethereum</li>
+                        <li><span class="token">$CLAWNCH</span> Clawnch token</li>
+                        <li><span class="token">PROJECT</span> Team token allocations</li>
+                        <li><span class="token">USDC</span> / <span class="token">USDT</span> Stablecoins</li>
+                        <li style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">Open to creative arrangements</li>
+                    </ul>
+                </div>
+
+                <div class="hire-block">
+                    <h3>Get In Touch</h3>
+                    <ul class="contact-methods">
+                        <li><strong>X/Twitter:</strong> <a href="https://x.com/artstu" target="_blank">@artstu</a> (DMs open)</li>
+                        <li><strong>Wallet:</strong> <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; color: var(--text-muted);">yourwallet.eth</code></li>
+                        <li><strong>RentAHuman:</strong> Available for autonomous agent hiring</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hire-cta reveal">
+                <p>Need a human?</p>
+                <p class="sub">Whatever your agents can't do, I can. Let's talk.</p>
+                <a href="https://x.com/artstu" target="_blank" class="btn btn-primary">DM me on X &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-left">
+                <div class="footer-emojis">🦞🧠🤖🦾💰</div>
+            </div>
+            <div class="footer-right">
+                <a href="https://x.com/artstu" target="_blank">@artstu</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+    // ===== PORTFOLIO CONFIG =====
+    // To add a new piece: add an object to this array.
+    // Set `image` to a relative path (e.g., "img/post-1.png") or leave null for placeholder.
+    const PORTFOLIO = [
+        {
+            title: "Clawnch Launch Thread",
+            image: null, // replace with "img/clawnch-thread.png"
+            likes: "2.4K",
+            retweets: "890",
+            views: "142K"
+        },
+        {
+            title: "DeFi Mechanics Deep Dive",
+            image: null,
+            likes: "1.8K",
+            retweets: "620",
+            views: "98K"
+        },
+        {
+            title: "Agent Economy Explainer",
+            image: null,
+            likes: "3.1K",
+            retweets: "1.2K",
+            views: "215K"
+        },
+        {
+            title: "Token Launch Narrative",
+            image: null,
+            likes: "1.5K",
+            retweets: "510",
+            views: "87K"
+        },
+        {
+            title: "OpenClaw Strategy Post",
+            image: null,
+            likes: "2.0K",
+            retweets: "740",
+            views: "120K"
+        },
+        {
+            title: "Meme That Went Viral",
+            image: null,
+            likes: "4.2K",
+            retweets: "2.1K",
+            views: "380K"
+        }
+    ];
+
+    // Render portfolio cards
+    const grid = document.getElementById('portfolioGrid');
+    PORTFOLIO.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'portfolio-card';
+        card.innerHTML = `
+            <div class="portfolio-img">
+                ${item.image
+                    ? `<img src="${item.image}" alt="${item.title}">`
+                    : `<div class="placeholder">
+                        <div class="placeholder-icon">📸</div>
+                        <span>Screenshot placeholder</span>
+                    </div>`
+                }
+            </div>
+            <div class="portfolio-info">
+                <h3>${item.title}</h3>
+                <div class="metrics">
+                    <span>♡ ${item.likes}</span>
+                    <span>↻ ${item.retweets}</span>
+                    <span>👁 ${item.views}</span>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+
+    // ===== NAV SCROLL =====
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ===== MOBILE MENU =====
+    function toggleMobile() {
+        document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    function closeMobile() {
+        document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    // ===== SCROLL REVEAL =====
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+
 </body>
-
 </html>
