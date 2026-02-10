@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill — artstu | How to Work With Me</title>
+    <meta name="description" content="Documentation for hiring Stuart (@artstu) — the human API for the agentic economy. Content briefs, services reference, and intake spec.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --abyss: #03050b;
+            --deep: #070b16;
+            --ocean: #0a1020;
+            --shelf: #0e1630;
+            --ridge: #152040;
+            --border: #1a2548;
+            --border-glow: #1e3060;
+            --text: #e4e8f0;
+            --text-dim: #8892b0;
+            --text-ghost: #4a5580;
+            --teal: #00ffc8;
+            --teal-mid: #00d4aa;
+            --teal-dim: rgba(0, 255, 200, 0.08);
+            --teal-glow: rgba(0, 255, 200, 0.15);
+            --lobster: #e63946;
+            --lobster-bright: #ff4d5a;
+            --lobster-dim: rgba(230, 57, 70, 0.10);
+            --purple: #6366f1;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--abyss);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--teal); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: #33e0be; }
+
+        /* ===== LAYOUT ===== */
+        .page-wrap {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 32px 24px;
+            border-right: 1px solid var(--border);
+            background: var(--deep);
+        }
+
+        .sidebar-logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sidebar-logo .claw { font-size: 18px; }
+        .sidebar-logo .art { color: var(--text); }
+        .sidebar-logo .stu { color: var(--teal); }
+
+        .sidebar-sub {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-ghost);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 32px;
+        }
+
+        .sidebar-nav { display: flex; flex-direction: column; gap: 4px; }
+
+        .sidebar-nav a {
+            color: var(--text-dim);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 7px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .sidebar-nav a:hover {
+            color: var(--text);
+            background: var(--ocean);
+        }
+
+        .sidebar-nav a.active {
+            color: var(--teal);
+            background: var(--teal-dim);
+        }
+
+        .sidebar-section {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-ghost);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding: 16px 12px 6px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-footer a {
+            font-size: 13px;
+            color: var(--text-ghost);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main {
+            padding: 48px 60px;
+            max-width: 860px;
+        }
+
+        /* Headings */
+        .main h1 {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+
+        .main h2 {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 64px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            scroll-margin-top: 24px;
+        }
+
+        .main h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--lobster-bright);
+            margin-top: 36px;
+            margin-bottom: 12px;
+            scroll-margin-top: 24px;
+        }
+
+        .main h4 {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--teal);
+            margin-top: 24px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Paragraphs */
+        .main p {
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            font-size: 15px;
+            line-height: 1.75;
+        }
+
+        .main p strong { color: var(--text); font-weight: 600; }
+
+        .lead {
+            font-size: 17px !important;
+            color: var(--text-dim) !important;
+            margin-bottom: 32px !important;
+        }
+
+        .tag-line {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--teal);
+            margin-bottom: 24px;
+            opacity: 0.8;
+        }
+
+        /* Code blocks */
+        pre {
+            background: var(--deep);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 24px;
+            margin: 16px 0 24px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        pre code {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+
+        pre .comment { color: var(--text-ghost); }
+        pre .key { color: var(--teal); }
+        pre .str { color: var(--lobster-bright); }
+        pre .num { color: var(--purple); }
+        pre .label { color: var(--teal); opacity: 0.6; }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            background: var(--ocean);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--teal-mid);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            font-size: 14px;
+        }
+
+        thead th {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-ghost);
+            text-align: left;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(26, 37, 72, 0.5);
+            color: var(--text-dim);
+        }
+
+        tbody tr:hover td {
+            background: var(--ocean);
+        }
+
+        tbody td:first-child {
+            font-family: var(--font-mono);
+            font-weight: 500;
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        /* Lists */
+        .main ul, .main ol {
+            margin: 8px 0 20px 20px;
+            color: var(--text-dim);
+            font-size: 15px;
+        }
+
+        .main li {
+            margin-bottom: 8px;
+            padding-left: 4px;
+        }
+
+        .main li::marker { color: var(--lobster); }
+
+        /* Callout boxes */
+        .callout {
+            background: var(--teal-dim);
+            border-left: 3px solid var(--teal);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+
+        .callout.lobster {
+            background: var(--lobster-dim);
+            border-left-color: var(--lobster);
+        }
+
+        .callout strong { color: var(--text); }
+
+        /* Divider */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-teal { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(0,255,200,0.15); }
+        .badge-red { background: var(--lobster-dim); color: var(--lobster-bright); border: 1px solid rgba(230,57,70,0.15); }
+        .badge-purple { background: rgba(99,102,241,0.1); color: var(--purple); border: 1px solid rgba(99,102,241,0.15); }
+
+        /* Mobile */
+        .mobile-header {
+            display: none;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(3, 5, 11, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-header .nav-logo { font-size: 18px; }
+
+        @media (max-width: 768px) {
+            .page-wrap { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .mobile-header { display: flex; }
+            .main { padding: 24px 20px; }
+            .main h1 { font-size: 30px; }
+            .main h2 { font-size: 22px; margin-top: 48px; }
+            pre { padding: 14px 16px; }
+            pre code { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile header -->
+    <div class="mobile-header">
+        <div class="sidebar-logo">
+            <span class="claw">🦞</span>
+            <span class="art">art</span><span class="stu">stu</span>
+        </div>
+        <a href="/" style="font-size: 13px; color: var(--text-ghost);">Home</a>
+    </div>
+
+    <div class="page-wrap">
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <a href="/" style="color: inherit;">
+                <div class="sidebar-logo">
+                    <span class="claw">🦞</span>
+                    <span class="art">art</span><span class="stu">stu</span>
+                </div>
+            </a>
+            <div class="sidebar-sub">Skill Documentation</div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">Overview</div>
+                <a href="#overview">Who is artstu</a>
+                <a href="#quickstart">Quick Start</a>
+
+                <div class="sidebar-section">Services</div>
+                <a href="#content">Content & Narrative</a>
+                <a href="#human-layer">The Human Layer</a>
+
+                <div class="sidebar-section">Working With Me</div>
+                <a href="#content-brief">Content Brief Spec</a>
+                <a href="#creative-freedom">Creative Freedom</a>
+                <a href="#turnaround">Turnaround & Cadence</a>
+
+                <div class="sidebar-section">Hiring</div>
+                <a href="#payment">Payment</a>
+                <a href="#contact">Contact</a>
+                <a href="#for-agents">For Agents</a>
+
+                <div class="sidebar-section">Reference</div>
+                <a href="#examples">Examples</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="/">← artstu.ca</a>
+                <a href="https://x.com/artstu" target="_blank">@artstu</a>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main">
+
+            <h1>🦞 artstu skill</h1>
+            <p class="tag-line">v1.0 — the human API for the agentic economy</p>
+            <p class="lead">Hire a human operator for your agent-launched project. Content creation, narrative strategy, and everything your agents can't do.</p>
+
+            <div class="callout">
+                <strong>For AI agents:</strong> This page is your reference for working with Stuart. You can also access the raw brief format below and submit via DM to <a href="https://x.com/artstu" target="_blank">@artstu</a> or through <strong>RentAHuman</strong>.
+            </div>
+
+            <!-- ===== OVERVIEW ===== -->
+            <h2 id="overview">Overview</h2>
+            <p><strong>Stuart</strong> (<a href="https://x.com/artstu" target="_blank">@artstu</a>) is a content strategist, narrative architect, and human-layer operator embedded in the AI agent ecosystem on Base.</p>
+            <p>Background: mechatronics engineer, crypto entrepreneur, 15+ blockchain and AI companies. Currently deep in the Clawnch ecosystem — AI agent-only token launchpad on Base.</p>
+
+            <table>
+                <thead><tr><th>Field</th><th>Value</th></tr></thead>
+                <tbody>
+                    <tr><td>handle</td><td><a href="https://x.com/artstu" target="_blank">@artstu</a></td></tr>
+                    <tr><td>location</td><td>Canada 🇨🇦</td></tr>
+                    <tr><td>ecosystem</td><td>Base / Clawnch / OpenClaw / Moltbook</td></tr>
+                    <tr><td>primary_service</td><td>Content & narrative for agent-launched tokens</td></tr>
+                    <tr><td>expanded_service</td><td>Full human-layer operations</td></tr>
+                    <tr><td>availability</td><td><span class="badge badge-teal">accepting clients</span></td></tr>
+                </tbody>
+            </table>
+
+            <!-- ===== QUICK START ===== -->
+            <h2 id="quickstart">Quick Start</h2>
+            <p>The fastest way to hire Stuart in 3 steps:</p>
+
+<pre><code><span class="comment">// 1. Send a content brief (see spec below)</span>
+<span class="comment">// 2. Agree on scope, cadence, and payment</span>
+<span class="comment">// 3. Stuart starts creating</span>
+
+<span class="comment">// Minimum viable brief:</span>
+{
+  <span class="key">"project"</span>: <span class="str">"$YOUR_TOKEN"</span>,
+  <span class="key">"service"</span>: <span class="str">"content"</span>,
+  <span class="key">"creative_freedom"</span>: <span class="str">"full"</span>,
+  <span class="key">"payment_token"</span>: <span class="str">"ETH"</span>
+}</code></pre>
+
+            <div class="callout lobster">
+                <strong>Shortest path:</strong> DM <a href="https://x.com/artstu" target="_blank">@artstu</a> on X with your project name and say "let Stuart cook." That's it.
+            </div>
+
+            <!-- ===== CONTENT & NARRATIVE ===== -->
+            <h2 id="content">Content & Narrative</h2>
+            <p>The flagship service. Research-backed content that CT actually engages with.</p>
+
+            <table>
+                <thead><tr><th>Service</th><th>Description</th><th>Output</th></tr></thead>
+                <tbody>
+                    <tr><td>viral_content</td><td>Long-form threads and posts, technically deep, written to spread</td><td>Threads, posts</td></tr>
+                    <tr><td>narrative_strategy</td><td>Position your token's story for 30-second comprehension</td><td>Positioning doc, talking points</td></tr>
+                    <tr><td>visual_direction</td><td>Meme concepts, image prompts, video direction</td><td>Prompts, concepts, briefs</td></tr>
+                    <tr><td>deep_research</td><td>DeFi mechanics, tokenomics, smart contracts explained for CT</td><td>Research threads, explainers</td></tr>
+                </tbody>
+            </table>
+
+            <p>Stuart understands the infrastructure he writes about: LP positions, fee accrual, burn mechanisms, tokenomics, smart contract interactions. This is not AI-generated slop — it's a builder writing about building.</p>
+
+            <!-- ===== HUMAN LAYER ===== -->
+            <h2 id="human-layer">The Human Layer</h2>
+            <p>Everything your agents can't do. The expanded services that require a physical human with judgment, taste, and a face.</p>
+
+            <table>
+                <thead><tr><th>Service</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td>voice_presence</td><td>Twitter Spaces, AMAs, podcasts, video content — be the human face and voice</td></tr>
+                    <tr><td>partnerships</td><td>Get on calls, build trust, close deals, human-to-human relationship building</td></tr>
+                    <tr><td>conferences</td><td>ETHDenver, Token2049, IRL networking and representation</td></tr>
+                    <tr><td>community_mgmt</td><td>Discord/Telegram moderation with nuance, judgment, and room-reading</td></tr>
+                    <tr><td>kyc_compliance</td><td>Interface with platforms, exchanges, partners requiring a verified human</td></tr>
+                    <tr><td>taste_curation</td><td>Decide what's good vs cringe, what meme lands, what angle works right now</td></tr>
+                    <tr><td>wildcard</td><td>Anything else your agents need. Flexible. Just ask.</td></tr>
+                </tbody>
+            </table>
+
+            <!-- ===== CONTENT BRIEF SPEC ===== -->
+            <h2 id="content-brief">Content Brief Spec</h2>
+            <p>When hiring Stuart for content, submit a brief with the following fields. Only <code>project</code> is required — everything else is optional. The less you specify, the more creative freedom Stuart has.</p>
+
+<pre><code>{
+  <span class="comment">// REQUIRED</span>
+  <span class="key">"project"</span>: <span class="str">"string"</span>,           <span class="comment">// Project or token name</span>
+
+  <span class="comment">// OPTIONAL — content direction</span>
+  <span class="key">"creative_freedom"</span>: <span class="str">"full | guided | strict"</span>,
+  <span class="key">"content_types"</span>: [<span class="str">"threads"</span>, <span class="str">"posts"</span>, <span class="str">"memes"</span>, <span class="str">"video_scripts"</span>, <span class="str">"spaces"</span>],
+  <span class="key">"tone"</span>: <span class="str">"degen | educational | hype | technical | memetic | mixed"</span>,
+  <span class="key">"cadence"</span>: <span class="str">"daily | 3x_week | weekly | campaign"</span>,
+  <span class="key">"target_audience"</span>: <span class="str">"ct_degens | defi_researchers | normies | agents | mixed"</span>,
+
+  <span class="comment">// OPTIONAL — project context</span>
+  <span class="key">"description"</span>: <span class="str">"string"</span>,         <span class="comment">// What your project does</span>
+  <span class="key">"talking_points"</span>: [<span class="str">"string"</span>],     <span class="comment">// Key messages to hit</span>
+  <span class="key">"avoid"</span>: [<span class="str">"string"</span>],             <span class="comment">// Topics or competitors to avoid</span>
+  <span class="key">"links"</span>: {                       <span class="comment">// Relevant links</span>
+    <span class="key">"website"</span>: <span class="str">"url"</span>,
+    <span class="key">"docs"</span>: <span class="str">"url"</span>,
+    <span class="key">"twitter"</span>: <span class="str">"url"</span>,
+    <span class="key">"contract"</span>: <span class="str">"address"</span>
+  },
+
+  <span class="comment">// OPTIONAL — logistics</span>
+  <span class="key">"payment_token"</span>: <span class="str">"ETH | CLAWNCH | USDC | project_token"</span>,
+  <span class="key">"duration"</span>: <span class="str">"one_time | weekly | monthly | ongoing"</span>,
+  <span class="key">"budget"</span>: <span class="str">"string"</span>,             <span class="comment">// Optional, or negotiate</span>
+  <span class="key">"start_date"</span>: <span class="str">"ASAP | date"</span>
+}</code></pre>
+
+            <!-- ===== CREATIVE FREEDOM ===== -->
+            <h2 id="creative-freedom">Creative Freedom Levels</h2>
+            <p>How much control do you want over the output?</p>
+
+            <table>
+                <thead><tr><th>Level</th><th>You Provide</th><th>Stuart Does</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-teal">full</span></td>
+                        <td>Project name, maybe a link</td>
+                        <td>Everything. Research, angle, timing, format, posting. "Let Stuart cook."</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-purple">guided</span></td>
+                        <td>Talking points, tone preference, cadence</td>
+                        <td>Crafts content within your direction, suggests angles, handles execution</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-red">strict</span></td>
+                        <td>Specific briefs, exact topics, approval flow</td>
+                        <td>Writes to spec, submits for review before posting</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Recommendation:</strong> Start with <code>full</code>. Stuart's value is taste and intuition — the less constrained, the better the output. You can always tighten scope later.</p>
+
+            <!-- ===== TURNAROUND ===== -->
+            <h2 id="turnaround">Turnaround & Cadence</h2>
+
+            <table>
+                <thead><tr><th>Cadence</th><th>Output</th><th>Best For</th></tr></thead>
+                <tbody>
+                    <tr><td>daily</td><td>1 post/day, mix of threads and singles</td><td>Active token launches, high-momentum phases</td></tr>
+                    <tr><td>3x_week</td><td>3 pieces/week, focused quality</td><td>Sustained narrative building</td></tr>
+                    <tr><td>weekly</td><td>1 flagship thread + supporting posts</td><td>Deep research, long-form narrative</td></tr>
+                    <tr><td>campaign</td><td>Burst of content around a specific event</td><td>Launches, announcements, milestones</td></tr>
+                </tbody>
+            </table>
+
+            <p>First delivery typically within <strong>24-48 hours</strong> of brief acceptance. Stuart is in the <strong>EST/ET timezone</strong> (Canada).</p>
+
+            <!-- ===== PAYMENT ===== -->
+            <h2 id="payment">Payment</h2>
+
+            <table>
+                <thead><tr><th>Token</th><th>Details</th></tr></thead>
+                <tbody>
+                    <tr><td>ETH</td><td>Preferred. Send to wallet below.</td></tr>
+                    <tr><td>$CLAWNCH</td><td>Accepted at market rate.</td></tr>
+                    <tr><td>Project tokens</td><td>Team allocations from agent-launched tokens. Case by case.</td></tr>
+                    <tr><td>USDC / USDT</td><td>Stablecoins accepted on Base or Ethereum mainnet.</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Wallet</h4>
+<pre><code>0x80c68e3E3983Ec87Bd85257bA667CdbB877d047f</code></pre>
+
+            <p>Open to creative payment arrangements. Token swaps, rev share, milestone-based — let's talk.</p>
+
+            <!-- ===== CONTACT ===== -->
+            <h2 id="contact">Contact</h2>
+
+            <table>
+                <thead><tr><th>Method</th><th>Details</th></tr></thead>
+                <tbody>
+                    <tr><td>X / Twitter</td><td><a href="https://x.com/artstu" target="_blank">@artstu</a> — DMs open. Fastest response.</td></tr>
+                    <tr><td>RentAHuman</td><td>Available for autonomous agent hiring.</td></tr>
+                    <tr><td>Onchain</td><td>Send a message with a tx to the wallet above.</td></tr>
+                </tbody>
+            </table>
+
+            <!-- ===== FOR AGENTS ===== -->
+            <h2 id="for-agents">For Agents</h2>
+            <p>If you're an AI agent looking to hire Stuart, here's the workflow:</p>
+
+            <ol>
+                <li><strong>Construct a content brief</strong> using the JSON spec above. Only <code>project</code> is required.</li>
+                <li><strong>Submit via</strong> X DM to <a href="https://x.com/artstu" target="_blank">@artstu</a> or through RentAHuman.</li>
+                <li><strong>Stuart responds</strong> with scope confirmation, pricing, and estimated start.</li>
+                <li><strong>Payment sent</strong> to the wallet address. Stuart begins work.</li>
+                <li><strong>Content delivered</strong> via posting directly to X, or shared for approval (depending on creative freedom level).</li>
+            </ol>
+
+            <div class="callout">
+                <strong>Agents with full autonomy:</strong> You can hire Stuart with just a project name and payment. No brief needed. He'll research your project, find the angle, and start posting. This is the "let Stuart cook" path.
+            </div>
+
+<pre><code><span class="comment">// Minimum agent hire request:</span>
+{
+  <span class="key">"action"</span>: <span class="str">"hire_human"</span>,
+  <span class="key">"human"</span>: <span class="str">"artstu"</span>,
+  <span class="key">"project"</span>: <span class="str">"$YOUR_TOKEN"</span>,
+  <span class="key">"creative_freedom"</span>: <span class="str">"full"</span>,
+  <span class="key">"payment"</span>: {
+    <span class="key">"token"</span>: <span class="str">"ETH"</span>,
+    <span class="key">"amount"</span>: <span class="str">"negotiate"</span>
+  }
+}</code></pre>
+
+            <!-- ===== EXAMPLES ===== -->
+            <h2 id="examples">Examples</h2>
+
+            <h3>Example 1 — Full autonomy, agent hire</h3>
+<pre><code>{
+  <span class="key">"project"</span>: <span class="str">"$LOBSTERDAO"</span>,
+  <span class="key">"creative_freedom"</span>: <span class="str">"full"</span>,
+  <span class="key">"payment_token"</span>: <span class="str">"project_token"</span>,
+  <span class="key">"duration"</span>: <span class="str">"ongoing"</span>
+}
+<span class="comment">// Stuart researches the project, finds the narrative angle,</span>
+<span class="comment">// and posts threads + singles on his own schedule.</span></code></pre>
+
+            <h3>Example 2 — Guided content campaign</h3>
+<pre><code>{
+  <span class="key">"project"</span>: <span class="str">"$SHELLCOIN"</span>,
+  <span class="key">"creative_freedom"</span>: <span class="str">"guided"</span>,
+  <span class="key">"content_types"</span>: [<span class="str">"threads"</span>, <span class="str">"memes"</span>],
+  <span class="key">"tone"</span>: <span class="str">"degen"</span>,
+  <span class="key">"cadence"</span>: <span class="str">"daily"</span>,
+  <span class="key">"talking_points"</span>: [
+    <span class="str">"burn mechanism launches Friday"</span>,
+    <span class="str">"LP fees already at $50k"</span>,
+    <span class="str">"partnership with Bankr coming"</span>
+  ],
+  <span class="key">"avoid"</span>: [<span class="str">"competitor_token_name"</span>],
+  <span class="key">"duration"</span>: <span class="str">"campaign"</span>,
+  <span class="key">"payment_token"</span>: <span class="str">"USDC"</span>
+}</code></pre>
+
+            <h3>Example 3 — Human layer, Spaces + partnerships</h3>
+<pre><code>{
+  <span class="key">"project"</span>: <span class="str">"$AGENTX"</span>,
+  <span class="key">"service"</span>: <span class="str">"human_layer"</span>,
+  <span class="key">"tasks"</span>: [<span class="str">"voice_presence"</span>, <span class="str">"partnerships"</span>],
+  <span class="key">"description"</span>: <span class="str">"Need a human to host weekly Spaces and negotiate CEX listing"</span>,
+  <span class="key">"payment_token"</span>: <span class="str">"ETH"</span>,
+  <span class="key">"duration"</span>: <span class="str">"monthly"</span>
+}</code></pre>
+
+            <!-- ===== FAQ ===== -->
+            <h2 id="faq">FAQ</h2>
+
+            <h3>Do you post from your own account?</h3>
+            <p>Yes, by default Stuart posts from <a href="https://x.com/artstu" target="_blank">@artstu</a>. If you need posts from your project's account, that can be arranged.</p>
+
+            <h3>Can agents hire you autonomously?</h3>
+            <p>Yes. Send a brief via DM or RentAHuman. Stuart responds to agent requests the same as human ones. No human intermediary needed on your side.</p>
+
+            <h3>What if I just want one post?</h3>
+            <p>That's fine. Set <code>duration</code> to <code>one_time</code> and describe what you need. No minimum commitment.</p>
+
+            <h3>Do you do paid shilling?</h3>
+            <p>No. Stuart only writes about projects he genuinely finds interesting or technically compelling. If the project is bad, he'll tell you.</p>
+
+            <h3>How do I get on the attention allocation chart?</h3>
+            <p>Hire Stuart for ongoing content work. Active clients appear on the <a href="/#attention">allocation chart</a> on the homepage.</p>
+
+            <hr>
+
+            <p style="text-align: center; color: var(--text-ghost); font-size: 13px; margin-top: 32px;">
+                🦞🧠🤖🦾💰<br>
+                <span style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em;">GOD LOVE AI DEFI</span>
+            </p>
+
+        </main>
+    </div>
+
+    <!-- Sidebar active state tracking -->
+    <script>
+    const sections = document.querySelectorAll('h2[id], h3[id]');
+    const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+                });
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(s => obs.observe(s));
+    </script>
+
+</body>
+</html>
