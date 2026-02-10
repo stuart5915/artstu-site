@@ -15,205 +15,326 @@
     <meta name="twitter:description" content="Content strategist, narrative architect, and human-layer operator for the agentic economy.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* ========== RESET & VARIABLES ========== */
+        /* ===== RESET ===== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-primary: #06080f;
-            --bg-secondary: #0b0e1a;
-            --bg-card: #0f1221;
-            --bg-card-hover: #141833;
-            --border: #1a1f35;
-            --border-hover: #2a3050;
-            --text: #e8eaf0;
-            --text-secondary: #8b90a5;
-            --text-muted: #5a5f78;
-            --accent: #00d4aa;
-            --accent-dim: rgba(0, 212, 170, 0.12);
-            --accent-glow: rgba(0, 212, 170, 0.25);
-            --accent-secondary: #00b4d8;
+            --abyss: #03050b;
+            --deep: #070b16;
+            --ocean: #0a1020;
+            --shelf: #0e1630;
+            --ridge: #152040;
+            --border: #1a2548;
+            --border-glow: #1e3060;
+            --text: #e4e8f0;
+            --text-dim: #8892b0;
+            --text-ghost: #4a5580;
+            --teal: #00ffc8;
+            --teal-mid: #00d4aa;
+            --teal-dim: rgba(0, 255, 200, 0.08);
+            --teal-glow: rgba(0, 255, 200, 0.15);
             --lobster: #e63946;
-            --lobster-dim: rgba(230, 57, 70, 0.1);
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --lobster-bright: #ff4d5a;
+            --lobster-dim: rgba(230, 57, 70, 0.10);
+            --lobster-glow: rgba(230, 57, 70, 0.20);
+            --coral: #ff8a80;
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-mono: 'Fira Code', monospace;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: var(--font-sans);
-            background: var(--bg-primary);
+            font-family: var(--font-body);
+            background: var(--abyss);
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
-        a:hover { color: #33e0be; }
-
-        /* ========== LAYOUT ========== */
-        .container {
-            max-width: 1080px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        section {
-            padding: 100px 0;
-        }
-
-        /* ========== AMBIENT BACKGROUND ========== */
-        .bg-glow {
+        /* Grain overlay */
+        body::after {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
             pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        a { color: var(--teal); text-decoration: none; transition: all 0.25s; }
+        a:hover { color: var(--teal-mid); text-shadow: 0 0 20px var(--teal-glow); }
+
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+        section { padding: 120px 0; position: relative; }
+
+        /* ===== CANVAS PARTICLES ===== */
+        #particles {
+            position: fixed;
+            inset: 0;
             z-index: 0;
-            overflow: hidden;
+            pointer-events: none;
         }
 
-        .bg-glow::before {
-            content: '';
+        /* ===== DECORATIVE CLAW SVGs ===== */
+        .claw-decor {
             position: absolute;
-            top: -20%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 212, 170, 0.04) 0%, transparent 70%);
-            animation: drift 20s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0.04;
+            z-index: 0;
         }
 
-        .bg-glow::after {
-            content: '';
-            position: absolute;
-            bottom: 10%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(230, 57, 70, 0.03) 0%, transparent 70%);
-            animation: drift 25s ease-in-out infinite reverse;
+        .claw-decor svg { width: 100%; height: 100%; }
+
+        .claw-left {
+            left: -120px;
+            top: 50%;
+            width: 300px;
+            height: 300px;
+            transform: translateY(-50%) rotate(-20deg);
         }
 
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(40px, -30px); }
+        .claw-right {
+            right: -100px;
+            top: 30%;
+            width: 250px;
+            height: 250px;
+            transform: rotate(15deg);
         }
 
-        /* ========== NAV ========== */
+        /* ===== NAV ===== */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 16px 0;
-            background: rgba(6, 8, 15, 0.8);
-            backdrop-filter: blur(20px);
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 18px 0;
+            background: rgba(3, 5, 11, 0.6);
+            backdrop-filter: blur(24px) saturate(1.4);
             border-bottom: 1px solid transparent;
-            transition: border-color 0.3s;
+            transition: all 0.4s;
         }
 
         nav.scrolled {
+            background: rgba(3, 5, 11, 0.9);
             border-bottom-color: var(--border);
         }
 
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
 
         .nav-logo {
-            font-weight: 700;
-            font-size: 18px;
-            letter-spacing: -0.02em;
-        }
-
-        .nav-logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 22px;
+            letter-spacing: -0.03em;
             display: flex;
-            gap: 28px;
             align-items: center;
+            gap: 3px;
         }
+
+        .nav-logo .claw { color: var(--lobster); font-size: 20px; margin-right: 6px; }
+        .nav-logo .art { color: var(--text); }
+        .nav-logo .stu { color: var(--teal); }
+
+        .nav-links { display: flex; gap: 32px; align-items: center; }
 
         .nav-links a {
-            color: var(--text-secondary);
+            font-family: var(--font-body);
+            color: var(--text-dim);
             font-size: 14px;
             font-weight: 500;
-            transition: color 0.2s;
+            letter-spacing: 0.02em;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--text);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; right: 0;
+            height: 1px;
+            background: var(--teal);
+            transform: scaleX(0);
+            transition: transform 0.3s;
         }
+
+        .nav-links a:hover { color: var(--text); text-shadow: none; }
+        .nav-links a:hover::after { transform: scaleX(1); }
 
         .nav-cta {
-            background: var(--accent-dim);
-            color: var(--accent) !important;
-            padding: 8px 18px;
+            background: linear-gradient(135deg, var(--lobster), #c0392b) !important;
+            color: #fff !important;
+            padding: 9px 22px;
             border-radius: 8px;
-            font-weight: 600;
-            border: 1px solid rgba(0, 212, 170, 0.2);
-            transition: all 0.2s !important;
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            border: none;
+            transition: all 0.3s !important;
+            box-shadow: 0 2px 16px var(--lobster-dim);
         }
+
+        .nav-cta::after { display: none !important; }
 
         .nav-cta:hover {
-            background: rgba(0, 212, 170, 0.2);
-            border-color: rgba(0, 212, 170, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 24px var(--lobster-glow) !important;
+            text-shadow: none !important;
         }
 
-        /* ========== HERO ========== */
+        /* Mobile nav */
+        .nav-mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .nav-mobile-toggle span {
+            width: 24px; height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 62px; left: 0; right: 0;
+            background: rgba(3, 5, 11, 0.97);
+            backdrop-filter: blur(24px);
+            padding: 28px;
+            border-bottom: 1px solid var(--border);
+            z-index: 999;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { color: var(--text-dim); font-size: 17px; font-weight: 500; padding: 6px 0; }
+
+        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             padding-top: 80px;
             position: relative;
+            overflow: hidden;
         }
 
-        .hero-content {
-            max-width: 720px;
+        /* Hero glow orbs */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -5%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0, 255, 200, 0.06) 0%, transparent 60%);
+            animation: heroGlow 12s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.04) 0%, transparent 60%);
+            animation: heroGlow 16s ease-in-out infinite reverse;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 1; }
+            50% { transform: translate(30px, -20px) scale(1.1); opacity: 0.7; }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content { max-width: 660px; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--lobster-dim);
+            border: 1px solid rgba(230, 57, 70, 0.2);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--lobster-bright);
+            margin-bottom: 28px;
+            animation: fadeUp 0.8s ease both;
+        }
+
+        .hero-badge .pulse {
+            width: 8px; height: 8px;
+            background: var(--lobster);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--lobster-glow); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 8px transparent; }
         }
 
         .hero-emojis {
-            font-size: 32px;
-            margin-bottom: 24px;
-            letter-spacing: 6px;
+            font-size: 40px;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            animation: fadeUp 0.8s ease 0.1s both;
         }
 
         .hero-name {
-            font-size: clamp(48px, 8vw, 80px);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 12px;
+            font-family: var(--font-display);
+            font-size: clamp(56px, 9vw, 96px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            margin-bottom: 8px;
+            animation: fadeUp 0.8s ease 0.2s both;
+            background: linear-gradient(135deg, var(--text) 0%, var(--text-dim) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-tagline {
             font-family: var(--font-mono);
-            font-size: 14px;
-            color: var(--accent);
-            letter-spacing: 0.08em;
+            font-size: 15px;
+            color: var(--teal);
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            margin-bottom: 32px;
-            opacity: 0.9;
+            margin-bottom: 28px;
+            animation: fadeUp 0.8s ease 0.3s both;
+            text-shadow: 0 0 30px var(--teal-glow);
         }
 
         .hero-desc {
-            font-size: clamp(20px, 3vw, 28px);
-            font-weight: 400;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 48px;
-            max-width: 600px;
+            font-size: clamp(18px, 2.5vw, 24px);
+            font-weight: 300;
+            color: var(--text-dim);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 540px;
+            animation: fadeUp 0.8s ease 0.4s both;
         }
 
         .hero-desc strong {
@@ -221,349 +342,586 @@
             font-weight: 600;
         }
 
-        .hero-actions {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
+        .hero-desc .hl {
+            color: var(--teal);
+            font-weight: 500;
         }
 
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            animation: fadeUp 0.8s ease 0.5s both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero claw graphic */
+        .hero-claw {
+            width: 280px;
+            height: 280px;
+            position: relative;
+            animation: fadeUp 1s ease 0.6s both;
+        }
+
+        .hero-claw svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 40px var(--lobster-glow));
+        }
+
+        .hero-claw .glow-ring {
+            position: absolute;
+            inset: -20px;
+            border-radius: 50%;
+            border: 1px solid rgba(230, 57, 70, 0.1);
+            animation: ringPulse 4s ease-in-out infinite;
+        }
+
+        .hero-claw .glow-ring:nth-child(2) { inset: -40px; animation-delay: 1s; }
+        .hero-claw .glow-ring:nth-child(3) { inset: -60px; animation-delay: 2s; }
+
+        @keyframes ringPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
+        }
+
+        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 14px 28px;
+            padding: 15px 30px;
             border-radius: 10px;
             font-weight: 600;
             font-size: 15px;
-            transition: all 0.2s;
+            font-family: var(--font-body);
+            transition: all 0.3s;
             cursor: pointer;
             border: none;
-            font-family: var(--font-sans);
+            position: relative;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg-primary);
+        .btn-lobster {
+            background: linear-gradient(135deg, var(--lobster), #c0392b);
+            color: #fff;
+            box-shadow: 0 4px 20px var(--lobster-dim);
         }
 
-        .btn-primary:hover {
-            background: #33e0be;
-            color: var(--bg-primary);
-            transform: translateY(-1px);
-            box-shadow: 0 8px 30px var(--accent-glow);
+        .btn-lobster:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px var(--lobster-glow);
+            text-shadow: none;
         }
 
-        .btn-secondary {
-            background: var(--bg-card);
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.03);
             color: var(--text);
             border: 1px solid var(--border);
+            backdrop-filter: blur(8px);
         }
 
-        .btn-secondary:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-hover);
-            transform: translateY(-1px);
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-glow);
+            transform: translateY(-2px);
+            color: var(--text);
+            text-shadow: none;
         }
 
-        /* ========== SECTION HEADERS ========== */
+        /* ===== STATS TICKER ===== */
+        .ticker {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--deep);
+            padding: 20px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 60px;
+            animation: scroll 25s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .ticker-item .num {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--teal);
+        }
+
+        .ticker-item .label {
+            font-size: 13px;
+            color: var(--text-ghost);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .ticker-divider {
+            color: var(--lobster);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-header { margin-bottom: 56px; }
+
         .section-label {
             font-family: var(--font-mono);
             font-size: 13px;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            font-size: clamp(32px, 5vw, 44px);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 16px;
-        }
-
-        .section-desc {
-            font-size: 17px;
-            color: var(--text-secondary);
-            max-width: 560px;
-            margin-bottom: 48px;
-        }
-
-        /* ========== WHAT I DO ========== */
-        .services-tier {
-            margin-bottom: 56px;
-        }
-
-        .tier-label {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
+            color: var(--lobster);
             letter-spacing: 0.12em;
-            margin-bottom: 20px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .tier-label.primary { color: var(--accent); }
-        .tier-label.expanded { color: var(--lobster); }
+        .section-label::before {
+            content: '🦞';
+            font-size: 16px;
+        }
 
-        .tier-label::after {
-            content: '';
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 5vw, 52px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+        }
+
+        .section-desc {
+            font-size: 17px;
+            color: var(--text-dim);
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        /* ===== CLAW DIVIDER ===== */
+        .claw-divider {
+            text-align: center;
+            padding: 0;
+            position: relative;
+        }
+
+        .claw-divider svg {
+            width: 120px;
+            height: 40px;
+            opacity: 0.15;
+        }
+
+        /* ===== SERVICES ===== */
+        .services-section { background: var(--deep); }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .tier-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .tier-icon.teal { background: var(--teal-dim); border: 1px solid rgba(0, 255, 200, 0.15); }
+        .tier-icon.red { background: var(--lobster-dim); border: 1px solid rgba(230, 57, 70, 0.15); }
+
+        .tier-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .tier-title.teal-text { color: var(--teal); }
+        .tier-title.red-text { color: var(--lobster-bright); }
+
+        .tier-line {
             flex: 1;
             height: 1px;
-            background: var(--border);
+            background: linear-gradient(to right, var(--border), transparent);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+            margin-bottom: 56px;
         }
 
         .service-card {
-            background: var(--bg-card);
+            background: var(--ocean);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            transition: all 0.25s;
+            border-radius: 14px;
+            padding: 26px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shell texture on cards */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                135deg,
+                transparent,
+                transparent 20px,
+                rgba(255, 255, 255, 0.005) 20px,
+                rgba(255, 255, 255, 0.005) 21px
+            );
+            pointer-events: none;
         }
 
         .service-card:hover {
-            border-color: var(--border-hover);
-            background: var(--bg-card-hover);
-            transform: translateY(-2px);
+            border-color: var(--border-glow);
+            background: var(--shelf);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        .service-card .icon {
-            font-size: 24px;
-            margin-bottom: 12px;
+        .service-card .s-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+            background: var(--shelf);
+            border: 1px solid var(--border);
         }
 
         .service-card h3 {
+            font-family: var(--font-display);
             font-size: 16px;
             font-weight: 700;
             margin-bottom: 8px;
+            letter-spacing: -0.01em;
         }
 
         .service-card p {
             font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
+            color: var(--text-dim);
+            line-height: 1.65;
         }
 
         .service-card.open-card {
             border-style: dashed;
-            border-color: var(--border-hover);
+            border-color: var(--lobster-dim);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            min-height: 140px;
+            min-height: 160px;
+            background: linear-gradient(135deg, var(--ocean), rgba(230, 57, 70, 0.03));
         }
 
-        .service-card.open-card p {
-            font-style: italic;
-        }
+        .service-card.open-card h3 { color: var(--lobster-bright); }
+        .service-card.open-card p { font-style: italic; }
 
-        /* ========== PORTFOLIO ========== */
+        /* ===== PORTFOLIO ===== */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
         }
 
         .portfolio-card {
-            background: var(--bg-card);
+            background: var(--ocean);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
-            transition: all 0.25s;
+            transition: all 0.3s;
         }
 
         .portfolio-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), 0 0 0 1px var(--border-glow);
         }
 
         .portfolio-img {
             width: 100%;
             aspect-ratio: 16 / 10;
-            background: var(--bg-secondary);
+            background: linear-gradient(135deg, var(--deep), var(--shelf));
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
-            font-size: 14px;
             position: relative;
             overflow: hidden;
         }
 
-        .portfolio-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .portfolio-img img { width: 100%; height: 100%; object-fit: cover; }
 
         .portfolio-img .placeholder {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
+            color: var(--text-ghost);
         }
 
-        .portfolio-img .placeholder-icon {
-            font-size: 32px;
-            opacity: 0.5;
-        }
+        .portfolio-img .placeholder .p-claw { font-size: 36px; opacity: 0.3; }
 
         .portfolio-info {
-            padding: 18px 20px;
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .portfolio-info h3 {
+            font-family: var(--font-display);
             font-size: 15px;
             font-weight: 600;
-            margin-bottom: 6px;
         }
 
         .portfolio-info .metrics {
             display: flex;
-            gap: 16px;
-            font-size: 13px;
-            color: var(--text-muted);
+            gap: 14px;
+            font-size: 12px;
+            color: var(--text-ghost);
             font-family: var(--font-mono);
         }
 
-        .portfolio-info .metrics span {
-            display: flex;
+        /* ===== ECOSYSTEM ===== */
+        .ecosystem-section {
+            background: linear-gradient(180deg, var(--abyss), var(--deep));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ecosystem-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(0, 255, 200, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .eco-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
             align-items: center;
-            gap: 4px;
+            position: relative;
+            z-index: 1;
         }
 
-        /* ========== ECOSYSTEM ========== */
-        .ecosystem {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .ecosystem-content {
-            max-width: 640px;
-        }
-
-        .ecosystem-content p {
+        .eco-text p {
             font-size: 17px;
-            color: var(--text-secondary);
+            color: var(--text-dim);
             line-height: 1.8;
             margin-bottom: 20px;
         }
 
-        .ecosystem-content a {
-            font-weight: 600;
-        }
-
-        .ecosystem-logos {
+        .eco-visual {
             display: flex;
-            gap: 24px;
             flex-wrap: wrap;
-            margin-top: 36px;
+            gap: 12px;
+            justify-content: center;
         }
 
         .eco-tag {
             font-family: var(--font-mono);
-            font-size: 13px;
-            color: var(--text-muted);
-            background: var(--bg-card);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 22px;
+            border-radius: 10px;
             border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 8px;
+            background: var(--ocean);
+            color: var(--text-dim);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* ========== HIRE ME ========== */
+        .eco-tag::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--teal-dim), var(--lobster-dim));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .eco-tag:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--teal-glow);
+        }
+
+        .eco-tag:hover::before { opacity: 1; }
+        .eco-tag span { position: relative; z-index: 1; }
+
+        /* ===== HIRE ME ===== */
+        .hire-section { background: var(--deep); }
+
         .hire-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .hire-block {
+            background: var(--ocean);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
         }
 
         .hire-block h3 {
+            font-family: var(--font-display);
             font-size: 18px;
             font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .payment-methods {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .payment-methods li {
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 15px;
-            color: var(--text-secondary);
         }
 
-        .payment-methods li .token {
-            font-family: var(--font-mono);
-            font-weight: 600;
-            color: var(--text);
-            font-size: 14px;
-            background: var(--bg-card);
-            padding: 2px 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-        }
+        .hire-block h3 .h-icon { font-size: 20px; }
 
-        .contact-methods {
+        .payment-list {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .contact-methods li {
+        .payment-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 15px;
-            color: var(--text-secondary);
+            color: var(--text-dim);
         }
 
-        .contact-methods li strong {
-            color: var(--text);
+        .payment-list .token {
+            font-family: var(--font-mono);
             font-weight: 600;
+            font-size: 13px;
+            color: var(--teal);
+            background: var(--teal-dim);
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 200, 0.12);
+        }
+
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-list li {
+            font-size: 15px;
+            color: var(--text-dim);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-list .c-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-ghost);
+        }
+
+        .contact-list .c-value { font-weight: 500; color: var(--text); }
+
+        .wallet-addr {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-ghost);
+            background: var(--shelf);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            word-break: break-all;
         }
 
         .hire-cta {
-            margin-top: 48px;
-            padding: 32px;
-            background: var(--bg-card);
+            padding: 40px;
+            background: linear-gradient(135deg, var(--ocean), rgba(230, 57, 70, 0.05));
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hire-cta p {
-            font-size: 20px;
-            font-weight: 600;
+        .hire-cta::before {
+            content: '🦞';
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            font-size: 120px;
+            opacity: 0.04;
+            transform: rotate(15deg);
+        }
+
+        .hire-cta h3 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 800;
             margin-bottom: 8px;
+            letter-spacing: -0.02em;
         }
 
         .hire-cta .sub {
-            font-size: 15px;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
+            font-size: 16px;
+            color: var(--text-dim);
+            margin-bottom: 28px;
         }
 
-        /* ========== FOOTER ========== */
+        /* ===== FOOTER ===== */
         footer {
-            padding: 40px 0;
+            padding: 48px 0;
             border-top: 1px solid var(--border);
+            background: var(--abyss);
         }
 
         footer .container {
@@ -572,135 +930,89 @@
             align-items: center;
         }
 
-        .footer-left {
-            font-size: 14px;
-            color: var(--text-muted);
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .footer-emojis {
-            font-size: 20px;
-            letter-spacing: 4px;
+            font-size: 22px;
+            letter-spacing: 6px;
         }
 
-        .footer-right a {
-            color: var(--text-muted);
+        .footer-tag {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-ghost);
+            letter-spacing: 0.08em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: var(--text-ghost);
             font-size: 14px;
             font-weight: 500;
-            transition: color 0.2s;
         }
 
-        .footer-right a:hover {
-            color: var(--text);
-        }
+        .footer-links a:hover { color: var(--text-dim); text-shadow: none; }
 
-        /* ========== SCROLL ANIMATIONS ========== */
+        /* ===== SCROLL REVEAL ===== */
         .reveal {
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .hero-claw { display: none; }
+            .eco-content { grid-template-columns: 1fr; gap: 36px; }
         }
 
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            section { padding: 72px 0; }
-
+            section { padding: 80px 0; }
             .nav-links { display: none; }
-
-            .nav-mobile-toggle {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-                cursor: pointer;
-                padding: 8px;
-            }
-
-            .nav-mobile-toggle span {
-                width: 22px;
-                height: 2px;
-                background: var(--text);
-                border-radius: 2px;
-                transition: all 0.3s;
-            }
-
-            .mobile-menu {
-                display: none;
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: rgba(6, 8, 15, 0.95);
-                backdrop-filter: blur(20px);
-                padding: 24px;
-                border-bottom: 1px solid var(--border);
-                z-index: 99;
-            }
-
-            .mobile-menu.open { display: flex; flex-direction: column; gap: 16px; }
-
-            .mobile-menu a {
-                color: var(--text-secondary);
-                font-size: 16px;
-                font-weight: 500;
-                padding: 8px 0;
-            }
-
-            .hero-emojis { font-size: 24px; }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hire-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            footer .container {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
+            .nav-mobile-toggle { display: flex; }
+            .hero-emojis { font-size: 30px; letter-spacing: 6px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .hire-grid { grid-template-columns: 1fr; gap: 20px; }
+            .ticker-item .num { font-size: 22px; }
+            footer .container { flex-direction: column; gap: 20px; text-align: center; }
+            .footer-links { gap: 16px; }
         }
 
         @media (min-width: 769px) {
             .nav-mobile-toggle { display: none; }
             .mobile-menu { display: none !important; }
         }
-
-        /* ========== LOBSTER WATERMARK ========== */
-        .lobster-watermark {
-            position: fixed;
-            bottom: -60px;
-            right: -40px;
-            font-size: 240px;
-            opacity: 0.015;
-            pointer-events: none;
-            z-index: 0;
-            transform: rotate(-15deg);
-        }
     </style>
 </head>
 <body>
 
-    <!-- Ambient background glow -->
-    <div class="bg-glow"></div>
+    <!-- Particle canvas -->
+    <canvas id="particles"></canvas>
 
-    <!-- Lobster watermark -->
-    <div class="lobster-watermark">🦞</div>
-
-    <!-- ========== NAV ========== -->
+    <!-- ===== NAV ===== -->
     <nav id="nav">
         <div class="container">
-            <div class="nav-logo">art<span>stu</span></div>
+            <div class="nav-logo">
+                <span class="claw">🦞</span>
+                <span class="art">art</span><span class="stu">stu</span>
+            </div>
             <div class="nav-links">
                 <a href="#services">Services</a>
                 <a href="#portfolio">Work</a>
@@ -722,95 +1034,160 @@
         </div>
     </nav>
 
-    <!-- ========== HERO ========== -->
+    <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
         <div class="container">
-            <div class="hero-content">
-                <div class="hero-emojis">🦞🧠🤖🦾💰</div>
-                <h1 class="hero-name">Stuart</h1>
-                <p class="hero-tagline">God Love AI DeFi</p>
-                <p class="hero-desc">
-                    I'm <strong>the human API</strong> for the agentic economy. Content strategy, narrative architecture, and everything your agents can't do.
-                </p>
-                <div class="hero-actions">
-                    <a href="#hire" class="btn btn-primary">Work With Me</a>
-                    <a href="https://x.com/artstu" target="_blank" class="btn btn-secondary">@artstu on X &rarr;</a>
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="pulse"></span>
+                        Available for hire
+                    </div>
+                    <div class="hero-emojis">🦞🧠🤖🦾💰</div>
+                    <h1 class="hero-name">Stuart</h1>
+                    <p class="hero-tagline">God Love AI DeFi</p>
+                    <p class="hero-desc">
+                        I'm <strong>the human API</strong> for the <span class="hl">agentic economy</span>. Content strategy, narrative architecture, and everything your agents can't do.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#hire" class="btn btn-lobster">Work With Me</a>
+                        <a href="https://x.com/artstu" target="_blank" class="btn btn-ghost">@artstu on X &rarr;</a>
+                    </div>
+                </div>
+                <div class="hero-claw">
+                    <div class="glow-ring"></div>
+                    <div class="glow-ring"></div>
+                    <div class="glow-ring"></div>
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Stylized lobster claw -->
+                        <path d="M100 20 C60 20, 25 55, 25 95 C25 125, 45 155, 70 165 L65 180 C62 190, 72 195, 78 188 L88 170 C92 172, 96 173, 100 173 C104 173, 108 172, 112 170 L122 188 C128 195, 138 190, 135 180 L130 165 C155 155, 175 125, 175 95 C175 55, 140 20, 100 20Z" fill="url(#clawGrad)" stroke="rgba(230,57,70,0.3)" stroke-width="1.5"/>
+                        <!-- Inner shell lines -->
+                        <path d="M70 60 Q100 80, 130 60" stroke="rgba(230,57,70,0.15)" stroke-width="1" fill="none"/>
+                        <path d="M65 80 Q100 100, 135 80" stroke="rgba(230,57,70,0.12)" stroke-width="1" fill="none"/>
+                        <path d="M60 100 Q100 120, 140 100" stroke="rgba(230,57,70,0.09)" stroke-width="1" fill="none"/>
+                        <!-- Eye -->
+                        <circle cx="100" cy="65" r="12" fill="var(--deep)" stroke="rgba(0,255,200,0.4)" stroke-width="1.5"/>
+                        <circle cx="100" cy="65" r="5" fill="var(--teal)" opacity="0.8">
+                            <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <defs>
+                            <radialGradient id="clawGrad" cx="50%" cy="40%" r="55%">
+                                <stop offset="0%" stop-color="rgba(230,57,70,0.25)"/>
+                                <stop offset="100%" stop-color="rgba(230,57,70,0.05)"/>
+                            </radialGradient>
+                        </defs>
+                    </svg>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== WHAT I DO ========== -->
-    <section id="services">
+    <!-- ===== STATS TICKER ===== -->
+    <div class="ticker">
+        <div class="ticker-track" id="tickerTrack">
+            <div class="ticker-item"><span class="num">15+</span><span class="label">Blockchain & AI companies</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">CT</span><span class="label">Native since 2017</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">Base</span><span class="label">Ecosystem operator</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">24/7</span><span class="label">Agent available</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">MechE</span><span class="label">Mechatronics engineer</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">🇨🇦</span><span class="label">Based in Canada</span></div>
+            <span class="ticker-divider">🦞</span>
+            <!-- Duplicate for seamless scroll -->
+            <div class="ticker-item"><span class="num">15+</span><span class="label">Blockchain & AI companies</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">CT</span><span class="label">Native since 2017</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">Base</span><span class="label">Ecosystem operator</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">24/7</span><span class="label">Agent available</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">MechE</span><span class="label">Mechatronics engineer</span></div>
+            <span class="ticker-divider">🦞</span>
+            <div class="ticker-item"><span class="num">🇨🇦</span><span class="label">Based in Canada</span></div>
+            <span class="ticker-divider">🦞</span>
+        </div>
+    </div>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services" class="services-section">
         <div class="container">
-            <div class="reveal">
-                <p class="section-label">// what i do</p>
+            <div class="section-header reveal">
+                <p class="section-label">What I Do</p>
                 <h2 class="section-title">Services</h2>
                 <p class="section-desc">I build narratives for agent-launched projects and fill every gap your AI can't. Builder who writes. Writer who builds.</p>
             </div>
 
-            <!-- Primary: Content & Narrative -->
-            <div class="services-tier reveal">
-                <div class="tier-label primary">
-                    <span>Content &amp; Narrative</span>
+            <!-- Content & Narrative -->
+            <div class="reveal">
+                <div class="tier-header">
+                    <div class="tier-icon teal">🧵</div>
+                    <span class="tier-title teal-text">Content & Narrative</span>
+                    <div class="tier-line"></div>
                 </div>
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="icon">🔥</div>
+                        <div class="s-icon">🔥</div>
                         <h3>Viral Content</h3>
                         <p>Long-form threads and posts that CT actually engages with. Research-backed, technically deep, written to spread.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🧵</div>
+                        <div class="s-icon">📐</div>
                         <h3>Narrative Strategy</h3>
                         <p>Position your token's story so people get it in 30 seconds. Tokenomics, mechanics, and vision distilled into CT language.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🎨</div>
-                        <h3>Visual &amp; Meme Direction</h3>
+                        <div class="s-icon">🎨</div>
+                        <h3>Visual & Meme Direction</h3>
                         <p>Meme concepts, text-to-image prompts, text-to-video direction. I know what lands and what's cringe.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🔬</div>
+                        <div class="s-icon">🔬</div>
                         <h3>Deep Research</h3>
                         <p>I understand DeFi mechanics, LP positions, fee accrual, burn mechanisms, and smart contracts. I write about what I actually understand.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Expanded: The Human Layer -->
-            <div class="services-tier reveal">
-                <div class="tier-label expanded">
-                    <span>The Human Layer</span>
+            <!-- The Human Layer -->
+            <div class="reveal">
+                <div class="tier-header">
+                    <div class="tier-icon red">🦞</div>
+                    <span class="tier-title red-text">The Human Layer</span>
+                    <div class="tier-line"></div>
                 </div>
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="icon">🎙️</div>
-                        <h3>Voice &amp; Presence</h3>
+                        <div class="s-icon">🎙️</div>
+                        <h3>Voice & Presence</h3>
                         <p>Twitter Spaces, AMAs, podcasts, video content. Be the human face and voice your agent project needs.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🤝</div>
-                        <h3>Partnerships &amp; Deals</h3>
+                        <div class="s-icon">🤝</div>
+                        <h3>Partnerships & Deals</h3>
                         <p>Get on calls, build trust, close deals. Human-to-human relationship building that agents can't replicate.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🏟️</div>
-                        <h3>IRL &amp; Conferences</h3>
+                        <div class="s-icon">🏟️</div>
+                        <h3>IRL & Conferences</h3>
                         <p>ETHDenver, Token2049, and beyond. Represent your project where handshakes still matter.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">🛡️</div>
-                        <h3>Community &amp; Moderation</h3>
+                        <div class="s-icon">🛡️</div>
+                        <h3>Community & Moderation</h3>
                         <p>Manage Discord and Telegram with nuance. Read the room, handle sensitive situations, make judgment calls.</p>
                     </div>
                     <div class="service-card">
-                        <div class="icon">✅</div>
-                        <h3>KYC &amp; Compliance</h3>
+                        <div class="s-icon">✅</div>
+                        <h3>KYC & Compliance</h3>
                         <p>Interface with platforms, exchanges, and partners that require a verified human. Legal and regulatory point of contact.</p>
                     </div>
                     <div class="service-card open-card">
-                        <div class="icon">✨</div>
+                        <div class="s-icon" style="background: transparent; border: none;">✨</div>
                         <h3>Anything Else</h3>
                         <p>Whatever your agents can't do, I can. I'm flexible. Let's talk.</p>
                     </div>
@@ -819,144 +1196,183 @@
         </div>
     </section>
 
-    <!-- ========== PORTFOLIO ========== -->
+    <!-- ===== PORTFOLIO ===== -->
     <section id="portfolio">
         <div class="container">
-            <div class="reveal">
-                <p class="section-label">// proof of work</p>
-                <h2 class="section-title">Work That Performed</h2>
-                <p class="section-desc">Posts, threads, and content that moved markets and timelines. Placeholder cards below &mdash; swap in your screenshots.</p>
+            <div class="section-header reveal">
+                <p class="section-label">Proof of Work</p>
+                <h2 class="section-title">Content That Performed</h2>
+                <p class="section-desc">Posts, threads, and content that moved markets and timelines.</p>
             </div>
-
-            <div class="portfolio-grid reveal" id="portfolioGrid">
-                <!-- Cards rendered by JS from config below -->
-            </div>
+            <div class="portfolio-grid reveal" id="portfolioGrid"></div>
         </div>
     </section>
 
-    <!-- ========== ECOSYSTEM ========== -->
-    <section class="ecosystem" id="ecosystem">
+    <!-- ===== ECOSYSTEM ===== -->
+    <section id="ecosystem" class="ecosystem-section">
         <div class="container">
-            <div class="reveal">
-                <p class="section-label">// the bigger picture</p>
+            <div class="section-header reveal">
+                <p class="section-label">The Bigger Picture</p>
                 <h2 class="section-title">The Agentic Economy</h2>
             </div>
-            <div class="ecosystem-content reveal">
-                <p>AI agents are launching tokens, managing treasuries, and building communities autonomously on Base. But there's a layer they can't fill &mdash; the human one. Negotiations, live presence, taste, trust, and judgment still require a person.</p>
-                <p>That's where I operate. I'm embedded in the <a href="https://clawn.ch" target="_blank">Clawnch</a> ecosystem and the broader agentic economy, bridging what agents build with what humans need to see, feel, and believe.</p>
-            </div>
-            <div class="ecosystem-logos reveal">
-                <span class="eco-tag">Clawnch</span>
-                <span class="eco-tag">OpenClaw</span>
-                <span class="eco-tag">Moltbook</span>
-                <span class="eco-tag">Bankr</span>
-                <span class="eco-tag">Clanker</span>
-                <span class="eco-tag">Base</span>
+            <div class="eco-content">
+                <div class="eco-text reveal">
+                    <p>AI agents are launching tokens, managing treasuries, and building communities autonomously on Base. But there's a layer they can't fill &mdash; the human one. Negotiations, live presence, taste, trust, and judgment still require a person.</p>
+                    <p>That's where I operate. I'm embedded in the <a href="https://clawn.ch" target="_blank">Clawnch</a> ecosystem and the broader agentic economy, bridging what agents build with what humans need to see, feel, and believe.</p>
+                </div>
+                <div class="eco-visual reveal">
+                    <div class="eco-tag"><span>Clawnch</span></div>
+                    <div class="eco-tag"><span>OpenClaw</span></div>
+                    <div class="eco-tag"><span>Moltbook</span></div>
+                    <div class="eco-tag"><span>Bankr</span></div>
+                    <div class="eco-tag"><span>Clanker</span></div>
+                    <div class="eco-tag"><span>Base</span></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== HIRE ME ========== -->
-    <section id="hire">
+    <!-- ===== HIRE ME ===== -->
+    <section id="hire" class="hire-section">
         <div class="container">
-            <div class="reveal">
-                <p class="section-label">// let's work</p>
+            <div class="section-header reveal">
+                <p class="section-label">Let's Work</p>
                 <h2 class="section-title">Hire Me</h2>
             </div>
 
             <div class="hire-grid reveal">
                 <div class="hire-block">
-                    <h3>Payment</h3>
-                    <ul class="payment-methods">
+                    <h3><span class="h-icon">💰</span> Payment</h3>
+                    <ul class="payment-list">
                         <li><span class="token">ETH</span> Ethereum</li>
                         <li><span class="token">$CLAWNCH</span> Clawnch token</li>
                         <li><span class="token">PROJECT</span> Team token allocations</li>
                         <li><span class="token">USDC</span> / <span class="token">USDT</span> Stablecoins</li>
-                        <li style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">Open to creative arrangements</li>
+                        <li style="color: var(--text-ghost); font-size: 13px; margin-top: 6px; font-style: italic;">Open to creative arrangements</li>
                     </ul>
                 </div>
 
                 <div class="hire-block">
-                    <h3>Get In Touch</h3>
-                    <ul class="contact-methods">
-                        <li><strong>X/Twitter:</strong> <a href="https://x.com/artstu" target="_blank">@artstu</a> (DMs open)</li>
-                        <li><strong>Wallet:</strong> <code style="font-family: var(--font-mono); font-size: 13px; background: var(--bg-card); padding: 2px 8px; border-radius: 4px; color: var(--text-muted);">yourwallet.eth</code></li>
-                        <li><strong>RentAHuman:</strong> Available for autonomous agent hiring</li>
+                    <h3><span class="h-icon">📡</span> Get In Touch</h3>
+                    <ul class="contact-list">
+                        <li>
+                            <span class="c-label">X / Twitter</span>
+                            <span class="c-value"><a href="https://x.com/artstu" target="_blank">@artstu</a> (DMs open)</span>
+                        </li>
+                        <li>
+                            <span class="c-label">Wallet</span>
+                            <span class="wallet-addr">0x80c68e3E3983Ec87Bd85257bA667CdbB877d047f</span>
+                        </li>
+                        <li>
+                            <span class="c-label">RentAHuman</span>
+                            <span class="c-value">Available for autonomous agent hiring</span>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="hire-cta reveal">
-                <p>Need a human?</p>
+                <h3>Need a human? 🦞</h3>
                 <p class="sub">Whatever your agents can't do, I can. Let's talk.</p>
-                <a href="https://x.com/artstu" target="_blank" class="btn btn-primary">DM me on X &rarr;</a>
+                <a href="https://x.com/artstu" target="_blank" class="btn btn-lobster">DM me on X &rarr;</a>
             </div>
         </div>
     </section>
 
-    <!-- ========== FOOTER ========== -->
+    <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container">
-            <div class="footer-left">
+            <div class="footer-brand">
                 <div class="footer-emojis">🦞🧠🤖🦾💰</div>
+                <div class="footer-tag">The Human API</div>
             </div>
-            <div class="footer-right">
+            <div class="footer-links">
+                <a href="writings.html">Writings</a>
                 <a href="https://x.com/artstu" target="_blank">@artstu</a>
             </div>
         </div>
     </footer>
 
-    <!-- ========== SCRIPTS ========== -->
+    <!-- ===== SCRIPTS ===== -->
     <script>
-    // ===== PORTFOLIO CONFIG =====
-    // To add a new piece: add an object to this array.
-    // Set `image` to a relative path (e.g., "img/post-1.png") or leave null for placeholder.
-    const PORTFOLIO = [
-        {
-            title: "Clawnch Launch Thread",
-            image: null, // replace with "img/clawnch-thread.png"
-            likes: "2.4K",
-            retweets: "890",
-            views: "142K"
-        },
-        {
-            title: "DeFi Mechanics Deep Dive",
-            image: null,
-            likes: "1.8K",
-            retweets: "620",
-            views: "98K"
-        },
-        {
-            title: "Agent Economy Explainer",
-            image: null,
-            likes: "3.1K",
-            retweets: "1.2K",
-            views: "215K"
-        },
-        {
-            title: "Token Launch Narrative",
-            image: null,
-            likes: "1.5K",
-            retweets: "510",
-            views: "87K"
-        },
-        {
-            title: "OpenClaw Strategy Post",
-            image: null,
-            likes: "2.0K",
-            retweets: "740",
-            views: "120K"
-        },
-        {
-            title: "Meme That Went Viral",
-            image: null,
-            likes: "4.2K",
-            retweets: "2.1K",
-            views: "380K"
+    // ===== PARTICLES (deep sea bioluminescence) =====
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let W, H;
+
+    function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight * 3;
+    }
+
+    function createParticles() {
+        particles = [];
+        const count = Math.min(60, Math.floor(W / 25));
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * W,
+                y: Math.random() * H,
+                r: Math.random() * 2 + 0.5,
+                dx: (Math.random() - 0.5) * 0.3,
+                dy: (Math.random() - 0.5) * 0.2,
+                opacity: Math.random() * 0.4 + 0.1,
+                color: Math.random() > 0.3
+                    ? `rgba(0, 255, 200, ${Math.random() * 0.3 + 0.1})`
+                    : `rgba(230, 57, 70, ${Math.random() * 0.2 + 0.05})`,
+                phase: Math.random() * Math.PI * 2,
+                speed: Math.random() * 0.02 + 0.005
+            });
         }
+    }
+
+    function drawParticles() {
+        ctx.clearRect(0, 0, W, H);
+        const t = performance.now() * 0.001;
+        particles.forEach(p => {
+            const flicker = 0.5 + 0.5 * Math.sin(t * p.speed * 10 + p.phase);
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.opacity * flicker;
+            ctx.fill();
+
+            // Glow
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.opacity * flicker * 0.15;
+            ctx.fill();
+
+            ctx.globalAlpha = 1;
+
+            p.x += p.dx + Math.sin(t + p.phase) * 0.15;
+            p.y += p.dy + Math.cos(t * 0.7 + p.phase) * 0.1;
+
+            if (p.x < -10) p.x = W + 10;
+            if (p.x > W + 10) p.x = -10;
+            if (p.y < -10) p.y = H + 10;
+            if (p.y > H + 10) p.y = -10;
+        });
+        requestAnimationFrame(drawParticles);
+    }
+
+    resize();
+    createParticles();
+    drawParticles();
+    window.addEventListener('resize', () => { resize(); createParticles(); });
+
+    // ===== PORTFOLIO CONFIG =====
+    // To add: set `image` to a path like "img/post-1.png", or leave null for placeholder.
+    const PORTFOLIO = [
+        { title: "Clawnch Launch Thread", image: null, likes: "2.4K", retweets: "890", views: "142K" },
+        { title: "DeFi Mechanics Deep Dive", image: null, likes: "1.8K", retweets: "620", views: "98K" },
+        { title: "Agent Economy Explainer", image: null, likes: "3.1K", retweets: "1.2K", views: "215K" },
+        { title: "Token Launch Narrative", image: null, likes: "1.5K", retweets: "510", views: "87K" },
+        { title: "OpenClaw Strategy Post", image: null, likes: "2.0K", retweets: "740", views: "120K" },
+        { title: "Meme That Went Viral", image: null, likes: "4.2K", retweets: "2.1K", views: "380K" }
     ];
 
-    // Render portfolio cards
     const grid = document.getElementById('portfolioGrid');
     PORTFOLIO.forEach(item => {
         const card = document.createElement('div');
@@ -965,11 +1381,7 @@
             <div class="portfolio-img">
                 ${item.image
                     ? `<img src="${item.image}" alt="${item.title}">`
-                    : `<div class="placeholder">
-                        <div class="placeholder-icon">📸</div>
-                        <span>Screenshot placeholder</span>
-                    </div>`
-                }
+                    : `<div class="placeholder"><div class="p-claw">🦞</div><span style="font-size:13px">screenshot placeholder</span></div>`}
             </div>
             <div class="portfolio-info">
                 <h3>${item.title}</h3>
@@ -978,33 +1390,26 @@
                     <span>↻ ${item.retweets}</span>
                     <span>👁 ${item.views}</span>
                 </div>
-            </div>
-        `;
+            </div>`;
         grid.appendChild(card);
     });
 
     // ===== NAV SCROLL =====
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 20);
+        nav.classList.toggle('scrolled', window.scrollY > 30);
     });
 
     // ===== MOBILE MENU =====
-    function toggleMobile() {
-        document.getElementById('mobileMenu').classList.toggle('open');
-    }
-    function closeMobile() {
-        document.getElementById('mobileMenu').classList.remove('open');
-    }
+    function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open'); }
+    function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
 
     // ===== SCROLL REVEAL =====
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('visible');
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
